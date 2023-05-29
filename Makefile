@@ -6,7 +6,7 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/05/29 11:22:04 by kposthum      ########   odam.nl          #
+#    Updated: 2023/05/29 14:41:56 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME := minishell
 SRCS := main.c
 
 HEADERS	:= -I ./libft/include -I ./include
-LIBFT := ./libft/libft.a
+LIBFT := ./libft/libft.a -lreadline
 SRCDIR := ./src
 OBJDIR := ./obj
 OBJS :=	$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
