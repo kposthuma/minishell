@@ -6,7 +6,7 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/05/29 14:41:56 by kposthum      ########   odam.nl          #
+#    Updated: 2023/05/29 14:49:00 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME := minishell
 SRCS := main.c
 
 HEADERS	:= -I ./libft/include -I ./include
-LIBFT := ./libft/libft.a -lreadline
+LIBFT := ./libft/libft.a
+LIBS := -lreadline
 SRCDIR := ./src
 OBJDIR := ./obj
 OBJS :=	$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
@@ -25,7 +26,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo Making $(NAME)
-	@$(CC) $(OBJS) $(HEADERS) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJS) $(HEADERS) $(LIBFT) $(LIBS) -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
