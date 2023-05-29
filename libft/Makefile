@@ -6,7 +6,7 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/03/26 16:24:23 by kposthum      ########   odam.nl          #
+#    Updated: 2023/05/29 11:21:47 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,21 +26,27 @@ SRCS = 	ft_atoi.c		ft_bzero.c		ft_calloc.c		ft_free.c		ft_isalnum.c\
 		ft_printf.c	ft_printf_write.c	ft_printf_putptr.c	\
 		get_next_line.c	get_next_line_utils.c \
 		ft_str_of_strlen.c	ft_print_charpp.c
-OBJS =  ${SRCS:.c=.o}
+
+HEADERS	:= -I ./include
+SRCDIR := ./src
+OBJDIR := ./obj
+OBJS :=	$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
+SRCS := $(addprefix $(SRCDIR)/,$(SRCS))
+
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo Making $(NAME)
 	@ar -cr $(NAME) $(OBJS)
 
-$(OBJS): %.o: %.c
-	@echo Compiling: $<
-	@$(CC) -c $^
-
-all: $(NAME)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(HEADERS) -c $< -o $@
 
 clean:
 	@echo Removing object files libft
 	@rm -f $(OBJS)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
 	@echo Removing $(NAME)
