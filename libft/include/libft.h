@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/03 16:53:22 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/03/26 16:24:08 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/01 13:12:55 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
 void	ft_bzero(void *s, int n);
 void	*ft_calloc(size_t count, size_t size);
+size_t	ft_charcount(const char *str, char c);
 void	ft_free(char **a);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);

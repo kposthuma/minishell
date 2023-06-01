@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/05/29 13:52:29 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/01 12:35:46 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@
 # include<readline/readline.h>
 # include<readline/history.h>
 # include<libft.h>
+
+typedef struct s_commands
+{
+	size_t	comm_nr;
+	char	***commands;
+}	t_commands;
 
 #endif

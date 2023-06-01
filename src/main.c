@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/05/29 16:05:02 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/01 14:20:04 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,31 @@ void	sigfunc(int signum)
 	exit(signum);
 }
 
+void	parse_line(char *line)
+{
+	t_commands	*cmd;
+
+	cmd = ft_calloc(1, sizeof(t_commands));
+	cmd->comm_nr = ft_charcount(line, '|') + 1;
+	cmd->commands = ft_calloc(cmd->comm_nr + 1, sizeof(char **));
+}
+
 int	main(void)
 {
-	char	*line;
+	static char	*line;
 
 	signal(SIGINT, sigfunc);
 	while (true)
 	{
 		line = readline("KAAS% ");
 		if (!line)
-			return (printf("exit\n"), 1);
-		if (line[0] != '\0')
+			return (printf("exit\n"), 0);
+		if (line && *line)
 			add_history(line);
+		printf("line = %s\n", line);
 		if (ft_strncmp(line, "exit", 4) == 0)
 			return (free(line), 0);
-		else
-		{
-			printf("line = %s\n", line);
-			free(line);
-		}
+		free(line);
+		line = NULL;
 	}
 }
