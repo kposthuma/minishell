@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/01 12:35:46 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/08 11:44:01 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,24 @@
 # include<readline/history.h>
 # include<libft.h>
 
+typedef struct s_outf
+{
+	bool	append;
+	char	*filename;
+}	t_outf;
+
+typedef struct s_inf
+{
+	bool	heredoc;
+	char	*filename;
+}	t_inf;
+
 typedef struct s_commands
 {
 	size_t	comm_nr;
 	char	***commands;
+	t_inf	*infile;
+	t_outf	*outfile;
 }	t_commands;
 
 #endif
