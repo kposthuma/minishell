@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/08 11:54:33 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/08 13:51:53 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ t_outf	*has_outfile(t_commands *cmd)
 	size_t	i;
 
 	i = strofstrlen(cmd->commands[cmd->comm_nr - 1]) - 2;
-	if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">>", 3) != 0 &&
-		ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">", 2) != 0)
+	if (cmd->commands[cmd->comm_nr - 1][i][0] != '>')
 		return (NULL);
 	outfile = ft_calloc(1, sizeof(t_inf));
 	if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">>", 3) == 0)
 		outfile->append = true;
-	else
+	else if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">", 2) == 0)
 		outfile->append = false;
+	else
+		return (syntax_error(cmd->commands[cmd->comm_nr - 1][i]),
+			free(outfile), NULL);
 	outfile->filename = ft_strdup(cmd->commands[cmd->comm_nr - 1][i + 1]);
 	return (outfile);
 }
@@ -40,13 +42,12 @@ t_inf	*has_infile(t_commands *cmd)
 {
 	t_inf	*infile;
 
-	if (ft_strncmp(cmd->commands[0][0], "<<", 3) != 0 &&
-		ft_strncmp(cmd->commands[0][0], "<", 2) != 0)
+	if (ft_strchr(cmd->commands[0][0], '<') == NULL)
 		return (NULL);
 	infile = ft_calloc(1, sizeof(t_inf));
 	if (ft_strncmp(cmd->commands[0][0], "<<", 3) == 0)
 		infile->heredoc = true;
-	else
+	else if (ft_strncmp(cmd->commands[0][0], "<", 2) == 0)
 		infile->heredoc = false;
 	infile->filename = ft_strdup(cmd->commands[0][1]);
 	return (infile);
