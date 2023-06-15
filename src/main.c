@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/08 13:51:53 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/13 15:04:29 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,6 @@ void	sigfunc(int signum)
 {
 	printf("aapjes, %i", signum);
 	exit(signum);
-}
-
-t_outf	*has_outfile(t_commands *cmd)
-{
-	t_outf	*outfile;
-	size_t	i;
-
-	i = strofstrlen(cmd->commands[cmd->comm_nr - 1]) - 2;
-	if (cmd->commands[cmd->comm_nr - 1][i][0] != '>')
-		return (NULL);
-	outfile = ft_calloc(1, sizeof(t_inf));
-	if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">>", 3) == 0)
-		outfile->append = true;
-	else if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">", 2) == 0)
-		outfile->append = false;
-	else
-		return (syntax_error(cmd->commands[cmd->comm_nr - 1][i]),
-			free(outfile), NULL);
-	outfile->filename = ft_strdup(cmd->commands[cmd->comm_nr - 1][i + 1]);
-	return (outfile);
-}
-
-t_inf	*has_infile(t_commands *cmd)
-{
-	t_inf	*infile;
-
-	if (ft_strchr(cmd->commands[0][0], '<') == NULL)
-		return (NULL);
-	infile = ft_calloc(1, sizeof(t_inf));
-	if (ft_strncmp(cmd->commands[0][0], "<<", 3) == 0)
-		infile->heredoc = true;
-	else if (ft_strncmp(cmd->commands[0][0], "<", 2) == 0)
-		infile->heredoc = false;
-	infile->filename = ft_strdup(cmd->commands[0][1]);
-	return (infile);
 }
 
 t_commands	*parse_line(char *line)
@@ -71,7 +36,11 @@ t_commands	*parse_line(char *line)
 	}
 	ft_free(temp);
 	cmd->infile = has_infile(cmd);
+	if (cmd->infile != NULL)
+		cmd->commands[0] = trim_comm_in(cmd->commands[0]);
 	cmd->outfile = has_outfile(cmd);
+	if (cmd->outfile != NULL)
+		cmd->commands[i - 1] = trim_comm_out(cmd->commands[i - 1]);
 	i = 0;
 	printf("nr of commands: %lu\n", cmd->comm_nr);
 	while (cmd->commands[i])
@@ -102,4 +71,5 @@ int	main(void)
 		free(line);
 		line = NULL;
 	}
+	return (0);
 }
