@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/13 15:04:29 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/15 11:15:58 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_commands	*parse_line(char *line)
 		i++;
 	}
 	ft_free(temp);
+	printf("nr of commands: %lu\n", cmd->comm_nr);
 	cmd->infile = has_infile(cmd);
 	if (cmd->infile != NULL)
 		cmd->commands[0] = trim_comm_in(cmd->commands[0]);
@@ -42,7 +43,6 @@ t_commands	*parse_line(char *line)
 	if (cmd->outfile != NULL)
 		cmd->commands[i - 1] = trim_comm_out(cmd->commands[i - 1]);
 	i = 0;
-	printf("nr of commands: %lu\n", cmd->comm_nr);
 	while (cmd->commands[i])
 	{
 		print_charpp(cmd->commands[i]);

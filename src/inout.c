@@ -6,13 +6,13 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/15 10:28:57 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/15 11:12:57 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
-char	*trim_comm_out(char **comm)
+char	**trim_comm_out(char **comm)
 {
 	char	**comm_new;
 	size_t	i;
@@ -33,19 +33,22 @@ t_outf	*has_outfile(t_commands *cmd)
 	t_outf	*outfile;
 	size_t	i;
 
-	i = strofstrlen(cmd->commands[cmd->comm_nr - 1]) - 2;
+	i = strofstrlen(cmd->commands[cmd->comm_nr - 1]);
+	if (i < 3)
+		return (NULL);
+	i -= 2;
 	if (cmd->commands[cmd->comm_nr - 1][i][0] != '>')
 		return (NULL);
 	outfile = ft_calloc(1, sizeof(t_inf));
-	if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i][0], ">>", 3) == 0)
+	if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">>", 3) == 0)
 		outfile->append = true;
-	else if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i][0], ">", 2) == 0)
+	else if (ft_strncmp(cmd->commands[cmd->comm_nr - 1][i], ">", 2) == 0)
 		outfile->append = false;
 	outfile->filename = ft_strdup(cmd->commands[cmd->comm_nr - 1][i + 1]);
 	return (outfile);
 }
 
-char	*trim_comm_in(char **comm)
+char	**trim_comm_in(char **comm)
 {
 	char	**comm_new;
 	size_t	i;

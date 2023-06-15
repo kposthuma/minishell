@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/13 15:02:24 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/15 10:42:48 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ typedef struct s_commands
 	t_outf	*outfile;
 }	t_commands;
 
+char	**trim_comm_out(char **comm);
 t_outf	*has_outfile(t_commands *cmd);
+char	**trim_comm_in(char **comm);
 t_inf	*has_infile(t_commands *cmd);
 
 #endif
