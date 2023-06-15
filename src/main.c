@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/15 11:15:58 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/15 14:36:15 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ t_commands	*parse_line(char *line)
 		printf("end of command nr %lu\n\n", i + 1);
 		i++;
 	}
+	if (cmd->infile != NULL)
+		printf("name infile: %s\n", cmd->infile->filename);
+	if (cmd->outfile != NULL)
+		printf("name outfile: %s\n", cmd->outfile->filename);
 	return (cmd);
 }
 
