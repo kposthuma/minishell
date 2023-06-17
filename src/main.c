@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/15 14:36:15 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/17 16:06:57 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,48 +18,48 @@ void	sigfunc(int signum)
 	exit(signum);
 }
 
-t_commands	*parse_line(char *line)
+t_input	*parse_line(char *line)
 {
-	t_commands	*cmd;
-	char		**temp;
-	size_t		i;
+	t_input	*cmd;
+	char	**temp;
+	size_t	i;
 
 	i = 0;
-	cmd = ft_calloc(1, sizeof(t_commands));
+	cmd = ft_calloc(1, sizeof(t_input));
 	cmd->comm_nr = ft_charcount(line, '|') + 1;
-	cmd->commands = ft_calloc(cmd->comm_nr + 1, sizeof(char **));
+	cmd->commands = ft_calloc(cmd->comm_nr + 1, sizeof(t_commands *));
 	temp = ft_split(line, '|');
 	while (i < cmd->comm_nr)
 	{
-		cmd->commands[i] = ft_split_quotes(temp[i], ' ');
+		cmd->commands[i]->command = ft_split_quotes(temp[i], ' ');
 		i++;
 	}
 	ft_free(temp);
-	printf("nr of commands: %lu\n", cmd->comm_nr);
-	cmd->infile = has_infile(cmd);
-	if (cmd->infile != NULL)
-		cmd->commands[0] = trim_comm_in(cmd->commands[0]);
-	cmd->outfile = has_outfile(cmd);
-	if (cmd->outfile != NULL)
-		cmd->commands[i - 1] = trim_comm_out(cmd->commands[i - 1]);
+	printf("nr of input: %lu\n", cmd->comm_nr);
+	cmd->commands[i]->infile = has_infile(cmd->commands[i]);
+	if (cmd->commands[i]->infile != NULL)
+		cmd->commands[i]->command = trim_comm_in(cmd->commands[i]->command);
+	cmd->commands[i]->outfile = has_outfile(cmd->commands[i]);
+	if (cmd->commands[i]->outfile != NULL)
+		cmd->commands[i]->command = trim_comm_out(cmd->commands[i]->command);
 	i = 0;
-	while (cmd->commands[i])
+	while (cmd->commands[i]->command)
 	{
-		print_charpp(cmd->commands[i]);
+		print_charpp(cmd->commands[i]->command);
 		printf("end of command nr %lu\n\n", i + 1);
 		i++;
 	}
-	if (cmd->infile != NULL)
-		printf("name infile: %s\n", cmd->infile->filename);
-	if (cmd->outfile != NULL)
-		printf("name outfile: %s\n", cmd->outfile->filename);
+	if (cmd->commands[i]->infile != NULL)
+		printf("name infile: %s\n", cmd->commands[i]->infile->filename);
+	if (cmd->commands[i]->outfile != NULL)
+		printf("name outfile: %s\n", cmd->commands[i]->outfile->filename);
 	return (cmd);
 }
 
 int	main(void)
 {
 	static char	*line;
-	t_commands	*cmd;
+	t_input		*cmd;
 
 	signal(SIGINT, sigfunc);
 	while (true)

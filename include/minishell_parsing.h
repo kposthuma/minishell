@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/15 10:42:48 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/17 16:25:33 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,28 @@ typedef struct s_inf
 	char	*filename;
 }	t_inf;
 
-// main command struct
-// comm_nr is the number of comamnds passed to the execute part of the shell
 // infile is NULL when there is no outfile
 // outfile is NULL when there is no outfile
+
 typedef struct s_commands
 {
-	size_t	comm_nr;
-	char	***commands;
+	char	**command;
 	t_inf	*infile;
 	t_outf	*outfile;
 }	t_commands;
 
+// main input struct
+// comm_nr is the number of comamnds passed to the execute part of the shell
+typedef struct s_input
+{
+	size_t		comm_nr;
+	t_commands	**commands;
+	// char		***input;
+}	t_input;
+
 char	**trim_comm_out(char **comm);
-t_outf	*has_outfile(t_commands *cmd);
+t_outf	*has_outfile(t_commands *commands);
 char	**trim_comm_in(char **comm);
-t_inf	*has_infile(t_commands *cmd);
+t_inf	*has_infile(t_commands *commands);
 
 #endif
