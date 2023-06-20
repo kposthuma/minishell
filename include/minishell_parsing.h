@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/17 16:25:33 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/20 14:16:09 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,9 @@ typedef struct s_input
 {
 	size_t		comm_nr;
 	t_commands	**commands;
-	// char		***input;
 }	t_input;
 
-char	**trim_comm_out(char **comm);
-t_outf	*has_outfile(t_commands *commands);
-char	**trim_comm_in(char **comm);
-t_inf	*has_infile(t_commands *commands);
+t_outf	*has_outfile(char *commands);
+t_inf	*has_infile(char *commands);
 
 #endif

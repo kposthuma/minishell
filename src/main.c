@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/17 16:06:57 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/20 15:45:58 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,14 @@ t_input	*parse_line(char *line)
 	temp = ft_split(line, '|');
 	while (i < cmd->comm_nr)
 	{
-		cmd->commands[i]->command = ft_split_quotes(temp[i], ' ');
+		cmd->commands[i]->infile = has_infile(temp[i]);
+		cmd->commands[i]->outfile = has_outfile(temp[i]);
+		if (cmd->commands[i]->infile != NULL
+			|| cmd->commands[i]->outfile != NULL)
+			cmd->commands[i]->command = trim_in_out(temp[i]);
 		i++;
 	}
 	ft_free(temp);
-	printf("nr of input: %lu\n", cmd->comm_nr);
-	cmd->commands[i]->infile = has_infile(cmd->commands[i]);
-	if (cmd->commands[i]->infile != NULL)
-		cmd->commands[i]->command = trim_comm_in(cmd->commands[i]->command);
-	cmd->commands[i]->outfile = has_outfile(cmd->commands[i]);
-	if (cmd->commands[i]->outfile != NULL)
-		cmd->commands[i]->command = trim_comm_out(cmd->commands[i]->command);
-	i = 0;
-	while (cmd->commands[i]->command)
-	{
-		print_charpp(cmd->commands[i]->command);
-		printf("end of command nr %lu\n\n", i + 1);
-		i++;
-	}
-	if (cmd->commands[i]->infile != NULL)
-		printf("name infile: %s\n", cmd->commands[i]->infile->filename);
-	if (cmd->commands[i]->outfile != NULL)
-		printf("name outfile: %s\n", cmd->commands[i]->outfile->filename);
 	return (cmd);
 }
 

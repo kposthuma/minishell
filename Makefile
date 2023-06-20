@@ -6,13 +6,13 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/06/15 14:55:58 by kposthum      ########   odam.nl          #
+#    Updated: 2023/06/20 15:37:45 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 CC := gcc -Wall -Werror -Wextra
 NAME := minishell
-SRCS := main.c	infile.c	outfile.c
+SRCS := main.c	inoutfile.c	mini_error.c
 
 HEADERS	:= -I ./libft/include -I ./include
 LIBFT := ./libft/libft.a

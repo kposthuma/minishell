@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 11:42:07 by kposthum      #+#    #+#                 */
-/*   Updated: 2022/11/17 14:11:02 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/20 15:48:09 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ size_t	ft_strchrgnl(char *string, char c)
 	return (0);
 }
 
-char	*ft_fillup(char *new, char *src, size_t j)
+static char	*ft_fillup(char *new, char *src, size_t j)
 {
 	int	i;
 

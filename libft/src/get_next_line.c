@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 11:41:48 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/01/12 10:35:21 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/20 15:47:19 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 	return (nextline);
 }
 
-char	*ft_circumcise(char *string)
+static char	*ft_circumcise(char *string)
 {
 	char	*newstring;
 	size_t	i;
@@ -49,7 +49,7 @@ char	*ft_circumcise(char *string)
 	return (free(string), newstring);
 }
 
-char	*ft_make_string(char *string, int fd)
+static char	*ft_make_string(char *string, int fd)
 {
 	char	buff[BUFFER_SIZE + 1];
 	int		check;
@@ -68,7 +68,7 @@ char	*ft_make_string(char *string, int fd)
 	return (string);
 }
 
-char	*ft_nextline(char *string)
+static char	*ft_nextline(char *string)
 {
 	size_t	i;
 	char	*nextline;
