@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/03 16:53:22 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/01 13:12:55 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/21 14:55:53 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_islower(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 int		ft_isupper(int c);
 char	*ft_itoa(int n);
 void	ft_lstadd_back(t_list **lst, t_list *new);

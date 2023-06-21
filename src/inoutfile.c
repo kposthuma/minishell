@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/20 15:52:45 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/21 14:46:13 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ size_t	file_len(char *temp)
 t_inf	*has_infile(char *command)
 {
 	t_inf	*infile;
-	size_t	temp;
+	char	*temp;
 	size_t	i;
 
 	temp = ft_strrchr(command, '<');
@@ -90,7 +90,7 @@ t_inf	*has_infile(char *command)
 t_outf	*has_outfile(char *command)
 {
 	t_outf	*outfile;
-	size_t	temp;
+	char	*temp;
 	size_t	i;
 
 	temp = ft_strrchr(command, '>');

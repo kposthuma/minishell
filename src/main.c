@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/20 15:45:58 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/21 14:28:57 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,9 @@ t_input	*parse_line(char *line)
 	cmd = ft_calloc(1, sizeof(t_input));
 	cmd->comm_nr = ft_charcount(line, '|') + 1;
 	cmd->commands = ft_calloc(cmd->comm_nr + 1, sizeof(t_commands *));
-	temp = ft_split(line, '|');
+	temp = ft_split_quotes(line, '|');
 	while (i < cmd->comm_nr)
 	{
-		cmd->commands[i]->infile = has_infile(temp[i]);
-		cmd->commands[i]->outfile = has_outfile(temp[i]);
-		if (cmd->commands[i]->infile != NULL
-			|| cmd->commands[i]->outfile != NULL)
-			cmd->commands[i]->command = trim_in_out(temp[i]);
 		i++;
 	}
 	ft_free(temp);
