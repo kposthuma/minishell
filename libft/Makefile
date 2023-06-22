@@ -6,13 +6,14 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/06/21 14:56:07 by kposthum      ########   odam.nl          #
+#    Updated: 2023/06/22 13:49:39 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc -Wall -Werror -Wextra
 NAME = libft.a
 SRCS = 	ft_atoi.c\
+		ft_atol.c\
 		ft_bzero.c\
 		ft_calloc.c\
 		ft_charcount.c\
@@ -35,6 +36,8 @@ SRCS = 	ft_atoi.c\
 		ft_putendl_fd.c\
 		ft_putnbr_fd.c\
 		ft_putstr_fd.c\
+		ft_split_quotes.c\
+		ft_split_whitespace.c\
 		ft_split.c\
 		ft_str_of_strlen.c\
 		ft_strchr.c\
@@ -52,8 +55,6 @@ SRCS = 	ft_atoi.c\
 		ft_substr.c\
 		ft_tolower.c\
 		ft_toupper.c\
-		ft_atol.c\
-		ft_split_quotes.c\
 		ft_lstnew_bonus.c\
 		ft_lstadd_front_bonus.c\
 		ft_lstsize_bonus.c\

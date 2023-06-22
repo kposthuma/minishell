@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/21 14:28:57 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/22 13:49:13 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_input	*parse_line(char *line)
 	temp = ft_split_quotes(line, '|');
 	while (i < cmd->comm_nr)
 	{
+		cmd->commands[i] = make_a_thing(temp[i]);
 		i++;
 	}
 	ft_free(temp);

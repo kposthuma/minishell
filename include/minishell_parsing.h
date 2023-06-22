@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/21 14:46:39 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/22 13:48:41 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ typedef struct s_inf
 
 typedef struct s_commands
 {
-	// char	**command;
-	// t_inf	*infile;
-	// t_outf	*outfile;
+	char	*command;
+	char	**args;
+	t_inf	**infile;
+	t_outf	**outfile;
 }	t_commands;
 
 // main input struct
@@ -67,8 +68,9 @@ typedef struct s_input
 	t_commands	**commands;
 }	t_input;
 
-t_outf	*has_outfile(char *commands);
-t_inf	*has_infile(char *commands);
-void	syntax_error_files(char *string);
+// t_outf	*has_outfile(char *commands);
+// t_inf	*has_infile(char *commands);
+t_commands	*make_a_thing(char *input);
+void		syntax_error_files(char *string);
 
 #endif

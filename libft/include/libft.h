@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/03 16:53:22 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/21 14:55:53 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/22 13:47:02 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	**ft_split_quotes(char const *s, char c);
+char	**ft_split_whitespace(char const *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
