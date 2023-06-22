@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/22 13:48:52 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/22 15:24:27 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 t_commands	*make_a_thing(char *input)
 {
-	char	**temp;
+	char		**temp;
+	t_commands	*commands;
 
 	temp = ft_split_whitespace(input);
-	return (NULL);
+	commands = ft_calloc(1, sizeof(t_commands));
+	commands->infile = check_infile(temp);
+	commands->outfile = check_outfile(temp);
+	commands->args = trim_redir(temp);
+	commands->command = ft_strdup(commands->args[0]);
+	return (commands);
 }
 
 // // char	**trim_comm_in(char **comm)
