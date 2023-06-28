@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/28 10:59:23 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/28 14:52:28 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ typedef struct s_inf
 	char	*filename;
 }	t_inf;
 
-// infile is NULL when there is no outfile
-// outfile is NULL when there is no outfile
-
+// infile contains NULL when there is no outfile
+// outfile contains NULL when there is no outfile
 typedef struct s_commands
 {
 	char	*command;
@@ -68,14 +67,11 @@ typedef struct s_input
 	t_commands	**commands;
 }	t_input;
 
-// t_outf	*has_outfile(char *commands);
-// t_inf	*has_infile(char *commands);
 t_commands	*parse_input(char *input);
 t_input		*parse_line(char *line);
 
 t_outf		**check_outfile(char **input);
 t_inf		**check_infile(char **input);
-size_t		redir_count(char **input, char c);
 
 void		syntax_error_files(char *string);
 
