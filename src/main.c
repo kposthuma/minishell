@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/22 15:16:47 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/28 10:59:05 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@ void	sigfunc(int signum)
 {
 	printf("aapjes, %i", signum);
 	exit(signum);
+}
+
+t_commands	*parse_input(char *input)
+{
+	char		**temp;
+	t_commands	*commands;
+
+	temp = ft_split_whitespace(input);
+	commands = ft_calloc(1, sizeof(t_commands));
+	commands->infile = check_infile(temp);
+	commands->outfile = check_outfile(temp);
+	commands->args = trim_redir(temp);
+	commands->command = ft_strdup(commands->args[0]);
+	ft_free(temp);
+	return (commands);
 }
 
 t_input	*parse_line(char *line)
@@ -31,7 +46,7 @@ t_input	*parse_line(char *line)
 	temp = ft_split_quotes(line, '|');
 	while (i < cmd->comm_nr)
 	{
-		cmd->commands[i] = make_a_thing(temp[i]);
+		cmd->commands[i] = parse_input(temp[i]);
 		i++;
 	}
 	ft_free(temp);

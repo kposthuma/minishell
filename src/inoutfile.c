@@ -6,120 +6,113 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/22 15:24:27 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/06/28 12:06:10 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
-t_commands	*make_a_thing(char *input)
+size_t	redir_count(char **input, char c)
 {
-	char		**temp;
-	t_commands	*commands;
+	size_t	i;
+	size_t	j;
 
-	temp = ft_split_whitespace(input);
-	commands = ft_calloc(1, sizeof(t_commands));
-	commands->infile = check_infile(temp);
-	commands->outfile = check_outfile(temp);
-	commands->args = trim_redir(temp);
-	commands->command = ft_strdup(commands->args[0]);
-	return (commands);
+	i = 0;
+	j = 0;
+	while (input[i])
+	{
+		if (input[i][0] == c)
+			j++;
+		i++;
+	}
+	return (j);
 }
 
-// // char	**trim_comm_in(char **comm)
-// // {
-// // 	char	**comm_new;
-// // 	size_t	i;
+t_inf	*make_inf_struct(char **input, size_t i)
+{
+	t_inf	*infile;
+	size_t	j;
 
-// // 	comm_new = ft_calloc(strofstrlen(comm) - 1, sizeof(char *));
-// // 	i = 2;
-// // 	while (comm[i])
-// // 	{
-// // 		comm_new[i - 2] = ft_strdup(comm[i]);
-// // 		i++;
-// // 	}
-// // 	ft_free(comm);
-// // 	return (comm_new);
-// // }
+	j = 0;
+	while (input[i][j] == '<')
+		j++;
+	if (j > 3)
+		return (NULL);
+	infile = ft_calloc(1, sizeof(t_inf));
+	if (input[i][j] != '\0')
+		infile->filename = ft_substr(input[i], j, ft_strlen(input[i]) - j);
+	else if (input[i + 1] && input[i + 1][0] != '<')
+		infile->filename = ft_strdup(input[i + 1]);
+	else
+		return (free(infile), NULL);
+	infile->in_type = j - 1;
+	return (infile);
+}
 
-// char	*trim_in_out(char *string)
-// {
-// 	char	**temp;
-// 	char	*trimmed;
-// 	size_t	i;
+t_inf	**check_infile(char **input)
+{
+	size_t	i;
+	size_t	j;
+	t_inf	**infiles;
 
-// 	temp = ft_split_quotes(string, ' ');
-// 	i = 0;
-// 	while (temp[i])
-// 	{
-// 		if (temp[i][0] == '<' || temp[i][0] == '>')
-// 			i++;
-// 		else
-// 			trimmed = ft_strjoingnl(trimmed, temp[i]);
-// 		i++;
-// 	}
-// 	ft_free(temp);
-// 	return (trimmed);
-// }
+	i = 0;
+	j = redir_count(input, '<');
+	if (j == 0)
+		return (NULL);
+	infiles = ft_calloc(j, sizeof(t_inf *));
+	j = 0;
+	while (input[i])
+	{
+		if (input[i][0] == '<')
+		{
+			infiles[j] = make_inf_struct(input, i);
+			j++;
+		}
+		i++;
+	}
+	return (infiles);
+}
 
-// size_t	file_len(char *temp)
-// {
-// 	size_t	i;
+t_outf	*make_outf_struct(char **input, size_t i)
+{
+	t_outf	*outfile;
+	size_t	j;
 
-// 	i = 0;
-// 	while (temp[i + 2])
-// 	{
-// 		if (temp[i + 2] == ' ')
-// 			break ;
-// 		i++;
-// 	}
-// 	return (i);
-// }
+	j = 0;
+	while (input[i][j] == '>')
+		j++;
+	if (j > 2)
+		return (NULL);
+	outfile = ft_calloc(1, sizeof(t_outf));
+	if (input[i][j] != '\0')
+		outfile->filename = ft_substr(input[i], j, ft_strlen(input[i]) - j);
+	else if (input[i + 1] && input[i + 1][0] != '>')
+		outfile->filename = ft_strdup(input[i + 1]);
+	else
+		return (free(outfile), NULL);
+	outfile->append = j - 1;
+	return (outfile);
+}
 
-// t_inf	*has_infile(char *command)
-// {
-// 	t_inf	*infile;
-// 	size_t	temp;
-// 	size_t	i;
+t_outf	**check_outfile(char **input)
+{
+	size_t	i;
+	size_t	j;
+	t_outf	**outfiles;
 
-// 	temp = ft_strrchr(command, '<');
-// 	if (!temp)
-// 		return (NULL);
-// 	infile = ft_calloc(1, sizeof(t_inf));
-// 	if (ft_strnstr(temp - 2, "<<< ", 4) == 0)
-// 		infile->in_type = 2;
-// 	else if (ft_strnstr(temp - 1, "<< ", 3) == 0)
-// 		infile->in_type = 1;
-// 	else if (ft_strnstr(temp, "< ", 2) == 0)
-// 		infile->in_type = 0;
-// 	else
-// 		return (syntax_error_files(temp), free(infile), NULL);
-// 	i = file_len(temp);
-// 	if (i == 0)
-// 		return (syntax_error_files(temp), free(infile), NULL);
-// 	infile->filename = ft_substr(temp, 0, i);
-// 	return (infile);
-// }
-
-// t_outf	*has_outfile(char *command)
-// {
-// 	t_outf	*outfile;
-// 	size_t	temp;
-// 	size_t	i;
-
-// 	temp = ft_strrchr(command, '>');
-// 	if (!temp)
-// 		return (NULL);
-// 	outfile = ft_calloc(1, sizeof(t_outf));
-// 	if (ft_strnstr(temp - 1, ">> ", 3) == 0)
-// 		outfile->append = true;
-// 	else if (ft_strnstr(temp, "> ", 2) == 0)
-// 		outfile->append = false;
-// 	else
-// 		return (syntax_error_files(temp), free(outfile), NULL);
-// 	i = file_len(temp);
-// 	if (i == 0)
-// 		return (syntax_error_files(temp), free(outfile), NULL);
-// 	outfile->filename = ft_substr(temp, 0, i);
-// 	return (outfile);
-// }
+	i = 0;
+	j = redir_count(input, '>');
+	if (j == 0)
+		return (NULL);
+	outfiles = ft_calloc(j, sizeof(t_outf *));
+	while (input[i])
+	{
+		if (input[i][0] == '>')
+		{
+			outfiles[j] = make_outf_struct(input, i);
+			j++;
+		}
+		i++;
+	}
+	return (outfiles);
+}
