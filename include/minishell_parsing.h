@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/28 14:52:28 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/04 16:31:49 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ t_input		*parse_line(char *line);
 
 t_outf		**check_outfile(char **input);
 t_inf		**check_infile(char **input);
+
+char		**trim_redir(char **input);
 
 void		syntax_error_files(char *string);
 
