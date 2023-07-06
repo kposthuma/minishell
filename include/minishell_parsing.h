@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/04 16:31:49 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/06 12:58:16 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@
 # include<libft.h>
 
 // outfile struct
-// append is false when truncating and true when appending the outfile
-// for regular outfile, filename is the filename provided
-// for heredoc, it is a delimiter
-// for herestring, it is the herestring
+// "append" is false when truncating and true when appending the outfile
+// in all cases "filename" is the filename provided
 typedef struct s_outf
 {
 	bool	append;
@@ -41,11 +39,12 @@ typedef struct s_outf
 }	t_outf;
 
 // infile struct
-// in_type is 0 for normal infile, 1 for heredoc, 2 for herestring
-// in all cases filename is the filename provided
+// "heredoc" is true in case of here_doc, or false for a normal infile
+// for a regular outfile, "filename" is the filename
+// for heredoc, it is a delimiter
 typedef struct s_inf
 {
-	int		in_type;
+	bool	heredoc;
 	char	*filename;
 }	t_inf;
 
@@ -55,8 +54,8 @@ typedef struct s_commands
 {
 	char	*command;
 	char	**args;
-	t_inf	**infile;
-	t_outf	**outfile;
+	t_inf	**infiles;
+	t_outf	**outfiles;
 }	t_commands;
 
 // main input struct
@@ -67,7 +66,7 @@ typedef struct s_input
 	t_commands	**commands;
 }	t_input;
 
-t_commands	*parse_input(char *input);
+t_commands	*parse_input(char *input, t_input *cmd, size_t i);
 t_input		*parse_line(char *line);
 
 t_outf		**check_outfile(char **input);
@@ -76,5 +75,6 @@ t_inf		**check_infile(char **input);
 char		**trim_redir(char **input);
 
 void		syntax_error_files(char *string);
+void		mem_err(void);
 
 #endif
