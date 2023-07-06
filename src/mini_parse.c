@@ -6,13 +6,46 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/06 12:59:00 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/06 14:49:18 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
-t_commands	*parse_input(char *input, t_input *cmd, size_t i)
+static void	free_struct2(t_commands *commands, char **temp)
+{
+	size_t	i;
+
+	i = 0;
+	if (commands->infiles)
+	{
+		while (commands->infiles[i])
+		{
+			free(commands->infiles[i]->filename);
+			free(commands->infiles[i]);
+			i++;
+		}
+		free(commands->infiles);
+	}
+	i = 0;
+	if (commands->outfiles)
+	{
+		while (commands->outfiles[i])
+		{
+			free(commands->outfiles[i]->filename);
+			free(commands->outfiles[i]);
+			i++;
+		}
+		free(commands->outfiles);
+	}
+	if (commands->args)
+		ft_free(commands->args);
+	free(commands);
+	ft_free(temp);
+	mem_err();
+}
+
+t_commands	*make_inout(char *input, t_input *cmd, size_t i)
 {
 	char		**temp;
 	t_commands	*commands;
@@ -26,15 +59,17 @@ t_commands	*parse_input(char *input, t_input *cmd, size_t i)
 	commands->infiles = check_infile(temp);
 	commands->outfiles = check_outfile(temp);
 	commands->args = trim_redir(temp);
-	commands->command = ft_strdup(commands->args[0]);
 	if (!commands->infiles | !commands->outfiles
-		| !commands->args | !commands->command)
-		return (NULL); //proper alloc handling
+		| !commands->args)
+		return (free_struct2(commands, temp), NULL);
+	commands->command = ft_strdup(commands->args[0]);
+	if (!commands->command)
+		return (free_sruct2(commands, temp), NULL);
 	ft_free(temp);
 	return (commands);
 }
 
-void	free_struct(t_input *cmd, size_t i, char **temp)
+static void	free_struct1(t_input *cmd, size_t i, char **temp)
 {
 	size_t	j;
 
@@ -49,6 +84,7 @@ void	free_struct(t_input *cmd, size_t i, char **temp)
 			free(cmd->commands[i]->infiles[j]);
 			j++;
 		}
+		free(cmd->commands[i]->infiles);
 		j = 0;
 		while (cmd->commands[i]->outfiles[j] != NULL)
 		{
@@ -56,12 +92,16 @@ void	free_struct(t_input *cmd, size_t i, char **temp)
 			free(cmd->commands[i]->outfiles[j]);
 			j++;
 		}
+		free(cmd->commands[i]->outfiles);
 		free(cmd->commands[i]);
+		i--;
 	}
+	free(cmd->commands);
 	free(cmd);
+	mem_err();
 }
 
-t_input	*parse_line(char *line)
+t_input	*make_struct(char *line)
 {
 	t_input	*cmd;
 	char	**temp;
@@ -82,7 +122,7 @@ t_input	*parse_line(char *line)
 	{
 		cmd->commands[i] = parse_input(temp[i], cmd, i);
 		if (!cmd->commands[i])
-			return (free_struct(cmd, i, temp), mem_err(), NULL);
+			return (free_struct1(cmd, i, temp), NULL);
 		i++;
 	}
 	ft_free(temp);

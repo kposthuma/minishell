@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/06 12:51:31 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/06 14:50:17 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(void)
 			return (printf("\nexit\n"), 0);
 		if (line && *line)
 			add_history(line);
-		cmd = parse_line(line);
+		parse_line(line);
+		cmd = make_struct(line);
 		// else
 		// 	mini_execution(cmd)
 		if (ft_strncmp(line, "exit", 4) == 0)
