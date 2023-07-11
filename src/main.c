@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/06 14:50:17 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/11 17:05:50 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	sigfunc(int signum)
 int	main(void)
 {
 	static char	*line;
-	t_input		*cmd;
 
 	signal(SIGINT, sigfunc);
 	while (true)
@@ -32,7 +31,6 @@ int	main(void)
 		if (line && *line)
 			add_history(line);
 		parse_line(line);
-		cmd = make_struct(line);
 		// else
 		// 	mini_execution(cmd)
 		if (ft_strncmp(line, "exit", 4) == 0)

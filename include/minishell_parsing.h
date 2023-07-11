@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/06 15:36:32 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/11 17:09:48 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ typedef struct s_input
 	t_commands	**commands;
 }	t_input;
 
+typedef struct s_loc_var
+{
+	char				*variable;
+	struct s_loc_var	*next;
+}	t_loc_var;
+
 t_commands	*make_inout(char *input, t_input *cmd, size_t i);
 t_input		*make_struct(char *line);
 
@@ -76,5 +82,7 @@ char		**trim_redir(char **input);
 
 void		syntax_error(char *string, char a);
 void		mem_err(void);
+
+void		parse_line(char *line);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/06 14:49:18 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/11 15:09:23 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
-static void	free_struct2(t_commands *commands, char **temp)
+void	free_struct2(t_commands *commands, char **temp)
 {
 	size_t	i;
 
@@ -64,12 +64,12 @@ t_commands	*make_inout(char *input, t_input *cmd, size_t i)
 		return (free_struct2(commands, temp), NULL);
 	commands->command = ft_strdup(commands->args[0]);
 	if (!commands->command)
-		return (free_sruct2(commands, temp), NULL);
+		return (free_struct2(commands, temp), NULL);
 	ft_free(temp);
 	return (commands);
 }
 
-static void	free_struct1(t_input *cmd, size_t i, char **temp)
+void	free_struct1(t_input *cmd, size_t i, char **temp)
 {
 	size_t	j;
 
@@ -120,7 +120,7 @@ t_input	*make_struct(char *line)
 		return (free(cmd->commands), free(cmd), mem_err(), NULL);
 	while (i < cmd->comm_nr)
 	{
-		cmd->commands[i] = parse_input(temp[i], cmd, i);
+		cmd->commands[i] = make_inout(temp[i], cmd, i);
 		if (!cmd->commands[i])
 			return (free_struct1(cmd, i, temp), NULL);
 		i++;
