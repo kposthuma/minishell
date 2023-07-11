@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/11 15:09:23 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/11 17:24:13 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	free_struct2(t_commands *commands, char **temp)
 	mem_err();
 }
 
-t_commands	*make_inout(char *input, t_input *cmd, size_t i)
+t_commands	*make_inout(char *input)
 {
 	char		**temp;
 	t_commands	*commands;
@@ -120,7 +120,7 @@ t_input	*make_struct(char *line)
 		return (free(cmd->commands), free(cmd), mem_err(), NULL);
 	while (i < cmd->comm_nr)
 	{
-		cmd->commands[i] = make_inout(temp[i], cmd, i);
+		cmd->commands[i] = make_inout(temp[i]);
 		if (!cmd->commands[i])
 			return (free_struct1(cmd, i, temp), NULL);
 		i++;
