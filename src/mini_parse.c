@@ -1,130 +1,83 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_parse.c                                       :+:    :+:            */
+/*   mini_checker.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/11 17:24:13 by kposthum      ########   odam.nl         */
+/*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
+/*   Updated: 2023/07/12 13:51:11 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
-void	free_struct2(t_commands *commands, char **temp)
+size_t	check_quotes(char *line, char q)
 {
 	size_t	i;
+	size_t	closed;
 
 	i = 0;
-	if (commands->infiles)
+	closed = 0;
+	while (line[i])
 	{
-		while (commands->infiles[i])
-		{
-			free(commands->infiles[i]->filename);
-			free(commands->infiles[i]);
-			i++;
-		}
-		free(commands->infiles);
+		if (line[i] == q)
+			closed++;
+		i++;
 	}
-	i = 0;
-	if (commands->outfiles)
-	{
-		while (commands->outfiles[i])
-		{
-			free(commands->outfiles[i]->filename);
-			free(commands->outfiles[i]);
-			i++;
-		}
-		free(commands->outfiles);
-	}
-	if (commands->args)
-		ft_free(commands->args);
-	free(commands);
-	ft_free(temp);
-	mem_err();
+	return (closed % 2);
 }
 
-t_commands	*make_inout(char *input)
+bool	is_bash_token(char a)
 {
-	char		**temp;
-	t_commands	*commands;
-
-	temp = ft_split_whitespace(input);
-	if (!temp)
-		return (mem_err(), NULL);
-	commands = ft_calloc(1, sizeof(t_commands));
-	if (!commands)
-		return (ft_free(temp), mem_err(), NULL);
-	commands->infiles = check_infile(temp);
-	commands->outfiles = check_outfile(temp);
-	commands->args = trim_redir(temp);
-	if (!commands->infiles | !commands->outfiles
-		| !commands->args)
-		return (free_struct2(commands, temp), NULL);
-	commands->command = ft_strdup(commands->args[0]);
-	if (!commands->command)
-		return (free_struct2(commands, temp), NULL);
-	ft_free(temp);
-	return (commands);
+	if (a == '|' || a == '&' || a == ';'
+		|| a == '(' || a == ')')
+		return (true);
+	return (false);
 }
 
-void	free_struct1(t_input *cmd, size_t i, char **temp)
+char	redir_arrows(char *line, char a, size_t i)
 {
 	size_t	j;
 
-	ft_free(temp);
-	while (i > 0)
+	j = 0;
+	while (line[i] == a)
 	{
-		i--;
-		j = 0;
-		while (cmd->commands[i]->infiles[j] != NULL)
-		{
-			free(cmd->commands[i]->infiles[j]->filename);
-			free(cmd->commands[i]->infiles[j]);
-			j++;
-		}
-		free(cmd->commands[i]->infiles);
-		j = 0;
-		while (cmd->commands[i]->outfiles[j] != NULL)
-		{
-			free(cmd->commands[i]->outfiles[j]->filename);
-			free(cmd->commands[i]->outfiles[j]);
-			j++;
-		}
-		free(cmd->commands[i]->outfiles);
-		free(cmd->commands[i]);
-		i--;
+		i++;
+		j++;
+		if (j > 2)
+			return (line[i - 1]);
+		if ((a == '>' && line[i] == '<') || (a == '<' && line[i] == '>')
+			|| is_bash_token(line[i]) == true)
+			return (line[i]);
+		if (!line[i])
+			return ('\n');
 	}
-	free(cmd->commands);
-	free(cmd);
-	mem_err();
+	return (0);
 }
 
-t_input	*make_struct(char *line)
+char	check_redirects(char *line)
 {
-	t_input	*cmd;
-	char	**temp;
 	size_t	i;
 
 	i = 0;
-	cmd = ft_calloc(1, sizeof(t_input));
-	if (!cmd)
-		return (mem_err(), NULL);
-	cmd->comm_nr = ft_charcount(line, '|') + 1;
-	cmd->commands = ft_calloc(cmd->comm_nr + 1, sizeof(t_commands *));
-	if (!cmd->commands)
-		return (free(cmd), mem_err(), NULL);
-	temp = ft_split_quotes(line, '|');
-	if (!temp)
-		return (free(cmd->commands), free(cmd), mem_err(), NULL);
-	while (i < cmd->comm_nr)
+	while (line[i])
 	{
-		cmd->commands[i] = make_inout(temp[i]);
-		if (!cmd->commands[i])
-			return (free_struct1(cmd, i, temp), NULL);
+		if (redir_arrows(line, '<', i) != 0)
+			return (redir_arrows(line, '<', i));
+		if (redir_arrows(line, '>', i) != 0)
+			return (redir_arrows(line, '>', i));
 		i++;
 	}
-	ft_free(temp);
-	return (cmd);
+	return (0);
+}
+
+bool	parse_line(char *line)
+{
+	if (check_quotes(line, '\'') == 1 || check_quotes(line, '\"') == 1)
+		return (syntax_error("Syntax error: Unclosed quotations.", 0), false);
+	else if (check_redirects(line) > 0)
+		return (syntax_error("Syntax error near unexpected token", 
+				check_redirects(line)), false);
+	return (true);
 }
