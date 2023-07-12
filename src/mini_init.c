@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/12 16:14:39 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/12 16:17:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	initialize(char *line, t_list **loc_var)
 	cmd = ft_calloc(sizeof(t_input), 1);
 	if (!cmd)
 		return (mem_err(), 1);
+	cmd->loc_var = loc_var;
 	cmd->comm_nr = ft_charcount(line, '|');
 	cmd->commands = ft_calloc(sizeof(t_commands *), cmd->comm_nr);
 	if (!cmd->commands)
 		return (mem_err(), free(cmd), 1);
-	cmd->loc_var = loc_var;
 	return (0);
 }
 
