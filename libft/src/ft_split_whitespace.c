@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/22 12:54:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/22 13:50:35 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/13 15:05:46 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static size_t	ft_length(char *str, size_t i)
 	size_t	len;
 
 	len = 0;
-	while (ft_isspace(str[i]) != 1 && str[i])
+	while (ft_isspace(str[i]) == 1 && str[i])
 	{
 		len += incrementer(str, i);
 		len++;
@@ -57,7 +57,7 @@ static char	**fillup_split(char **split, char *s_cpy, size_t words)
 	i = 0;
 	while (j < (words - 1))
 	{
-		while (ft_isspace(s_cpy[i]) == 1)
+		while (ft_isspace(s_cpy[i]) == 0)
 			i++;
 		len = ft_length(s_cpy, i);
 		split[j] = ft_substr(s_cpy, i, len);
@@ -78,12 +78,12 @@ static size_t	word_count(char *str)
 	j = 1;
 	while (str[i])
 	{
-		while (ft_isspace(str[i]) == 1)
+		while (ft_isspace(str[i]) != 1)
 			i++;
-		if (ft_isspace(str[i]) != 1 && str[i])
+		if (ft_isspace(str[i]) == 1 && str[i])
 			j++;
 		i += incrementer(str, i);
-		while (ft_isspace(str[i]) != 1 && str[i])
+		while (ft_isspace(str[i]) == 1 && str[i])
 			i++;
 	}
 	return (j);

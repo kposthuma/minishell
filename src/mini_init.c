@@ -6,15 +6,33 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/12 16:17:03 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/13 14:58:16 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
+t_commands	*construct(char	*line)
+{
+	t_commands	*command;
+
+	command = ft_calloc(sizeof(t_commands), 1);
+	if (!command)
+		return (mem_err(), NULL);
+	command->infiles = ft_calloc(sizeof(t_list *), 1);
+	command->outfiles = ft_calloc(sizeof(t_list *), 1);
+	if (!command->infiles || !command->outfiles)
+		return (free(command->infiles), free(command->outfiles),
+			free(command), NULL);
+	line = check_infile(command, line);
+	line = check_outfile(command, line);
+}
+
 int	initialize(char *line, t_list **loc_var)
 {
 	t_input		*cmd;
+	char		**temp;
+	size_t		i;
 
 	cmd = ft_calloc(sizeof(t_input), 1);
 	if (!cmd)
@@ -24,6 +42,13 @@ int	initialize(char *line, t_list **loc_var)
 	cmd->commands = ft_calloc(sizeof(t_commands *), cmd->comm_nr);
 	if (!cmd->commands)
 		return (mem_err(), free(cmd), 1);
+	temp = ft_split_whitespace(line);
+	i = 0;
+	while (i < cmd->comm_nr)
+	{
+		cmd->commands[i] = construct(temp[i]);
+		i++;
+	}
 	return (0);
 }
 

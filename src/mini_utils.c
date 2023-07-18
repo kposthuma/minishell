@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/12 14:24:57 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/13 15:05:44 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ size_t	redir_len(char *line, char a)
 		{
 			while (line[i + len] == a)
 				len++;
-			while (ft_isspace(line[i + len]) == 0)
-				len++;
 			while (ft_isspace(line[i + len]) == 1)
+				len++;
+			while (is_bash_token(line[i + len]) == false && line[i + len])
 				len++;
 			return (len);
 		}

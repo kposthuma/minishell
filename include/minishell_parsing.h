@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/12 16:14:00 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/13 14:49:25 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_outf
 {
 	bool			append;
 	char			*filename;
-	struct s_outf	*next;
 }	t_outf;
 
 // infile struct
@@ -56,7 +55,6 @@ typedef struct s_inf
 {
 	bool			heredoc;
 	char			*filename;
-	struct s_inf	*next;
 }	t_inf;
 
 // infile contains NULL when there is no outfile
@@ -65,8 +63,8 @@ typedef struct s_commands
 {
 	char	*command;
 	char	**args;
-	t_inf	**infiles;
-	t_outf	**outfiles;
+	t_list	**infiles;
+	t_list	**outfiles;
 }	t_commands;
 
 // main input struct
@@ -77,18 +75,31 @@ typedef struct s_input
 	t_commands	**commands;
 	t_list		**loc_var;
 }	t_input;
+// main.c
+void		sigfunc(int signum);
+t_list		**init_loc_var(void);
 
 // mini_parse.c
+size_t		check_quotes(char *line, char q);
+bool		is_bash_token(char a);
+char		redir_arrows(char *line, char a, size_t i);
+char		check_redirects(char *line);
 bool		parse_line(char *line);
+
 // mini_init.c
+t_commands	*construct(char	*line);
 int			initialize(char *line, t_list **loc_var);
+
 // t_commands	*make_inout(char *input);
 // t_input		*make_struct(char *line);
+// char		**trim_redir(char **input);
 
-t_outf		**check_outfile(char **input);
-t_inf		**check_infile(char **input);
+//mini_infile.c
+char		*check_infile(t_commands *command, char *input);
 
-char		**trim_redir(char **input);
+// mini_outfile.c
+char		*check_outfile(t_commands *command, char *input);
+
 // mini_error.c
 void		syntax_error(char *string, char a);
 void		mem_err(void);
