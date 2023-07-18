@@ -6,7 +6,7 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/07/12 13:53:23 by kposthum      ########   odam.nl          #
+#    Updated: 2023/07/18 14:05:40 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS := main.c\
 		mini_init.c\
 		mini_infile.c\
 		mini_outfile.c\
+		mini_expansion.c\
 		mini_error.c\
 		mini_trim.c\
 		mini_utils.c

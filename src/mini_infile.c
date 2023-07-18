@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/13 15:14:06 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/18 14:21:02 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*check_infile(t_commands *command, char *line)
 	t_inf	*inf;
 	t_list	*new;
 
-	while (ft_strchr(line, '<') != NULL)
+	while (ft_strchr_quotes(line, '<') != NULL)
 	{
-		temp = ft_substr(ft_strchr(line, '<'), 0, redir_len(line, '<'));
+		temp = ft_substr(ft_strchr_quotes(line, '<'), 0, redir_len(line, '<'));
 		inf = ft_calloc(sizeof(t_inf), 1);
 		if (!temp || !inf)
 			return (NULL); //proper free everything plox

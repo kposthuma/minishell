@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/13 15:13:19 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/18 14:22:39 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*check_outfile(t_commands *command, char *line)
 	t_outf	*outf;
 	t_list	*new;
 
-	while (ft_strchr(line, '>') != NULL)
+	while (ft_strchr_quotes(line, '>') != NULL)
 	{
-		temp = ft_substr(ft_strchr(line, '>'), 0, redir_len(line, '>'));
+		temp = ft_substr(ft_strchr_quotes(line, '>'), 0, redir_len(line, '>'));
 		outf = ft_calloc(sizeof(t_outf), 1);
 		if (!temp || !outf)
 			return (mem_err(), free(line), NULL); //proper free everything plox

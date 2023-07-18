@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/13 14:49:25 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/18 14:53:52 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@
 # include<readline/history.h>
 # include<libft.h>
 
-// linked list of locally assigned variables
+// locally assigned variable struct
 // useful for expansion, node 1 reserved for exit code?
-// all contents are stored in the format *=* (e.g. USER=kposthum)
-// typedef struct s_loc_var   REPLACED BY T_LIST
-// {
-// 	char				*variable;
-// 	struct s_loc_var	*next;
-// }	t_loc_var;
+typedef struct s_loc_var
+{
+	char	*variable;
+	char	*value;
+}	t_loc_var;
 
 // outfile struct
 // "append" is false when truncating and true when appending the outfile

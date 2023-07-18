@@ -6,11 +6,39 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/13 15:05:44 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/18 16:19:12 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
+
+char	*ft_strchr_quotes(char *s, char c)
+{
+	size_t			i;
+	size_t			j;
+
+	i = 0;
+	j = ft_strlen(s) + 1;
+	while (i < j)
+	{
+		if (s[i] == '\"')
+		{
+			i++;
+			while (s[i] != '\"')
+				i++;
+		}
+		if (s[i] == '\'')
+		{
+			i++;
+			while (s[i] != '\'')
+				i++;
+		}
+		if (s[i] == c)
+			return (&s[i]);
+		i++;
+	}
+	return (NULL);
+}
 
 size_t	redir_len(char *line, char a)
 {
@@ -36,7 +64,7 @@ size_t	redir_len(char *line, char a)
 	return (len);
 }
 
-//removes a part (str1) of a string and joins the remainder together
+//removes a part (snip) of a string and joins the remainder together
 char	*ft_string_snip(char *source, char	*snip)
 {
 	char	*left;
