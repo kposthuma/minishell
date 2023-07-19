@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/18 14:53:52 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 11:25:09 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ int			initialize(char *line, t_list **loc_var);
 // t_input		*make_struct(char *line);
 // char		**trim_redir(char **input);
 
+// mini_expansion.c
+char		*mini_expansion(char *line, t_list **loc_var);
+
 //mini_infile.c
 char		*check_infile(t_commands *command, char *input);
 
@@ -102,8 +105,12 @@ char		*check_outfile(t_commands *command, char *input);
 // mini_error.c
 void		syntax_error(char *string, char a);
 void		mem_err(void);
+
 // mini_utils.c
+char		*ft_strchr_quotes(char *s, char c);
 size_t		redir_len(char *line, char a);
 char		*ft_string_snip(char *source, char	*snip);
+char		*ft_strjointhree(char *str1, char *str2, char *str3);
+char		*ft_substr_sub(char *src, char *str1, char *str2);
 
 #endif

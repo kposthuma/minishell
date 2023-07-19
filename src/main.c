@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/18 15:02:44 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 13:48:37 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	sigfunc(int signum)
 {
 	printf("aapjes, %i", signum);
-	exit(signum);
 }
 
 t_list	**init_loc_var(void)
@@ -26,9 +25,17 @@ t_list	**init_loc_var(void)
 
 	loc_var = ft_calloc(sizeof(t_list *), 1);
 	status = ft_calloc(sizeof(t_loc_var *), 1);
+	if (!loc_var || !status)
+		return (free(loc_var), free(status), NULL);
 	status->variable = ft_strdup("?");
 	status->value = ft_strdup("0");
+	if (!status->variable || !status->value)
+		return (free(status->variable), free(status->value),
+			free(status), free(loc_var), NULL);
 	new = ft_lstnew((void *)status);
+	if (!new)
+		return (free(status->variable), free(status->value),
+			free(status), free(loc_var), NULL);
 	ft_lstadd_front(loc_var, new);
 	return (loc_var);
 }
@@ -48,10 +55,11 @@ int	main(void)
 {
 	static char	*line;
 	t_list		**loc_var;
-	int			status;
 
 	signal(SIGINT, sigfunc);
 	loc_var = init_loc_var();
+	if (!loc_var)
+		return (mem_err(), 1);
 	while (true)
 	{
 		line = readline("KAAS% ");
@@ -68,3 +76,22 @@ int	main(void)
 	}
 	return (0);
 }
+
+// int	main(void)
+// {
+// 	static char	*line;
+// 	t_list		**loc_var;
+
+// 	loc_var = init_loc_var();
+// 	while (true)
+// 	{
+// 		line = readline("line1: ");
+// 		printf("line 1: %s\n", line);
+// 		if (ft_strncmp(line, "exit", 4) == 0)
+// 			exit (0);
+// 		line = mini_expansion(line, loc_var);
+// 		printf("line 2: %s\n", line);
+// 		free(line);
+// 	}
+// 	exit (0);
+// }

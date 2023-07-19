@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/18 16:42:54 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 13:21:59 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*find_sub(t_list *var, char *name)
 	temp = getenv(name + 1);
 	if (temp != NULL)
 		return (temp);
-	while (var->nxt != NULL)
+	while (var != NULL)
 	{
 		tmp = (t_loc_var *)var->cnt;
-		if (ft_strncmp(tmp->variable, name + 1, strlen(name)) == 0)
+		if (ft_strncmp(tmp->variable, name + 1, ft_strlen(name)) == 0)
 			return (ft_strdup(tmp->value));
 		var = var->nxt;
 	}
@@ -70,4 +70,5 @@ char	*mini_expansion(char *line, t_list **loc_var)
 		else
 			i++;
 	}
+	return (line);
 }

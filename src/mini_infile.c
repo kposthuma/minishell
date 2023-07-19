@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/18 14:21:02 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 11:23:57 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static char	*make_filename(char *temp)
 {
-	char	*name;
-
 	while (*temp == '<' || ft_isspace(*temp) == 1)
 		temp++;
 	return (ft_strdup(temp));
@@ -26,7 +24,7 @@ static bool	check_heredoc(char *temp)
 	if (ft_charcount(temp, '<') == 2)
 		return (true);
 	else
-		retrun (false);
+		return (false);
 }
 
 char	*check_infile(t_commands *command, char *line)
@@ -42,7 +40,7 @@ char	*check_infile(t_commands *command, char *line)
 		if (!temp || !inf)
 			return (NULL); //proper free everything plox
 		inf->heredoc = check_heredoc(temp);
-		inf->filename = make_filname(temp);
+		inf->filename = make_filename(temp);
 		line = ft_string_snip(line, temp);
 		if (!inf->filename || !line)
 			return (mem_err(), free(line), NULL); //proper free everything plox

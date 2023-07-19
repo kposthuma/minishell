@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/13 14:58:16 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 15:07:39 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ t_commands	*construct(char	*line)
 			free(command), NULL);
 	line = check_infile(command, line);
 	line = check_outfile(command, line);
+	command->args = ft_split_whitespace(line);
+	command->command = ft_strdup(command->args[0]);
+	return (command);
 }
 
 int	initialize(char *line, t_list **loc_var)
@@ -34,6 +37,7 @@ int	initialize(char *line, t_list **loc_var)
 	char		**temp;
 	size_t		i;
 
+	line = mini_expansion(line, loc_var);
 	cmd = ft_calloc(sizeof(t_input), 1);
 	if (!cmd)
 		return (mem_err(), 1);
@@ -42,7 +46,7 @@ int	initialize(char *line, t_list **loc_var)
 	cmd->commands = ft_calloc(sizeof(t_commands *), cmd->comm_nr);
 	if (!cmd->commands)
 		return (mem_err(), free(cmd), 1);
-	temp = ft_split_whitespace(line);
+	temp = ft_split(line, '|');
 	i = 0;
 	while (i < cmd->comm_nr)
 	{
