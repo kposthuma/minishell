@@ -6,12 +6,13 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/18 16:19:12 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 17:10:25 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
+// ft_strchr, but skips over quotation marks
 char	*ft_strchr_quotes(char *s, char c)
 {
 	size_t			i;
@@ -40,6 +41,7 @@ char	*ft_strchr_quotes(char *s, char c)
 	return (NULL);
 }
 
+// determines the lenght of filename for in or outfiles
 size_t	redir_len(char *line, char a)
 {
 	size_t	len;
@@ -55,7 +57,8 @@ size_t	redir_len(char *line, char a)
 				len++;
 			while (ft_isspace(line[i + len]) == 1)
 				len++;
-			while (is_bash_token(line[i + len]) == false && line[i + len])
+			while (is_bash_token(line[i + len]) == false && line[i + len]
+				&& ft_isspace(line[i + len]) == 0)
 				len++;
 			return (len);
 		}

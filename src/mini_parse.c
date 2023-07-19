@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mini_checker.c                                     :+:    :+:            */
+/*   mini_parse.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/12 13:51:11 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 15:28:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
+// checks if there are any unclosed quotations
 size_t	check_quotes(char *line, char q)
 {
 	size_t	i;
@@ -28,6 +29,7 @@ size_t	check_quotes(char *line, char q)
 	return (closed % 2);
 }
 
+// because certain tokens cannot be used in for example filenames
 bool	is_bash_token(char a)
 {
 	if (a == '|' || a == '&' || a == ';'
@@ -36,7 +38,8 @@ bool	is_bash_token(char a)
 	return (false);
 }
 
-char	redir_arrows(char *line, char a, size_t i)
+// mostly here so >>> or <<< doesn't work
+static char	redir_arrows(char *line, char a, size_t i)
 {
 	size_t	j;
 
@@ -72,6 +75,7 @@ char	check_redirects(char *line)
 	return (0);
 }
 
+// looks for some syntax errors
 bool	parse_line(char *line)
 {
 	if (check_quotes(line, '\'') == 1 || check_quotes(line, '\"') == 1)

@@ -6,12 +6,13 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 13:21:59 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 15:16:47 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
+// finds the value of the variable to be replaced
 char	*find_sub(t_list *var, char *name)
 {
 	t_loc_var	*tmp;
@@ -30,6 +31,7 @@ char	*find_sub(t_list *var, char *name)
 	return (ft_strdup(""));
 }
 
+// finds the name of the variable to expand and replaces it
 char	*expand(char *line, size_t i, t_list *var)
 {
 	size_t	j;
@@ -47,6 +49,8 @@ char	*expand(char *line, size_t i, t_list *var)
 	return (line);
 }
 
+// looks for '$' to expand environmental variables,
+// except in between single quotes
 char	*mini_expansion(char *line, t_list **loc_var)
 {
 	size_t		i;

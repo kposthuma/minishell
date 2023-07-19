@@ -6,18 +6,21 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 13:48:37 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/19 17:13:06 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
+// WIP
 void	sigfunc(int signum)
 {
 	printf("aapjes, %i", signum);
 }
 
-t_list	**init_loc_var(void)
+//initializes a linked list of locally stored variables
+// and sets the initial status to 0
+static t_list	**init_loc_var(void)
 {
 	t_list		**loc_var;
 	t_list		*new;
@@ -40,7 +43,8 @@ t_list	**init_loc_var(void)
 	return (loc_var);
 }
 
-void	set_status(t_list **loc_var, int status)
+// execute part should retrun the exit status, gets saved here
+static void	set_status(t_list **loc_var, int status)
 {
 	t_list		*new;
 	t_loc_var	*num;
@@ -68,7 +72,7 @@ int	main(void)
 		if (line && *line)
 			add_history(line);
 		if (parse_line(line) == true)
-			set_status(loc_var, initialize(line, loc_var)); // returns exit status?
+			set_status(loc_var, initialize(line, loc_var));
 		if (ft_strncmp(line, "exit", 4) == 0)
 			return (free(line), 0);
 		free(line);
@@ -76,6 +80,8 @@ int	main(void)
 	}
 	return (0);
 }
+
+// for testing expansion
 
 // int	main(void)
 // {
@@ -94,4 +100,34 @@ int	main(void)
 // 		free(line);
 // 	}
 // 	exit (0);
+// }
+
+// for testing string snip
+
+// int	main(void)
+// {
+// 	static char	*line1;
+// 	static char	*line2;
+// 	t_list		**loc_var;
+
+// 	signal(SIGINT, sigfunc);
+// 	loc_var = init_loc_var();
+// 	if (!loc_var)
+// 		return (mem_err(), 1);
+// 	while (true)
+// 	{
+// 		line1 = readline("line1% ");
+// 		if (!line1)
+// 			return (printf("\nexit\n"), 0);
+// 		if (line1 && *line1)
+// 			add_history(line1);
+// 		line2 = readline("line2% ");
+// 		line1 = ft_string_snip(line1, line2);
+// 		printf("line 1 after: %s\n", line1);
+// 		free(line1);
+// 		free(line2);
+// 		line1 = NULL;
+// 		line2 = NULL;
+// 	}
+// 	return (0);
 // }
