@@ -6,13 +6,13 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 16:17:35 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/20 14:36:47 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
-void	prinf(t_list **inf)
+static void	prinf(t_list **inf)
 {
 	t_list	*head = *inf;
 	t_inf	*yes;
@@ -28,7 +28,7 @@ void	prinf(t_list **inf)
 	}
 }
 
-void	proutf(t_list **outf)
+static void	proutf(t_list **outf)
 {
 	t_list	*head = *outf;
 	t_outf	*yes;
@@ -44,7 +44,7 @@ void	proutf(t_list **outf)
 	}
 }
 
-void	print_all_the_shit(t_input *cmd)
+static void	print_all_the_shit(t_input *cmd)
 {
 	ft_printf("comm_nr: %d\n", cmd->comm_nr);
 	for (size_t i = 0; i < cmd->comm_nr; i++)
@@ -101,5 +101,6 @@ int	initialize(char *line, t_list **loc_var)
 		i++;
 	}
 	print_all_the_shit(cmd);
-	return (0);
+	destroy_cmd(cmd);
+	return (ft_strlen(line));
 }

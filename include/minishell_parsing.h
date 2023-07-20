@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 16:12:32 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/20 12:38:20 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ char		*check_infile(t_commands *command, char *input);
 
 // mini_outfile.c
 char		*check_outfile(t_commands *command, char *input);
+
+// mini_destruction.c
+void		destroy_cmd(t_input *cmd);
 
 // mini_error.c
 void		syntax_error(char *string, char a);

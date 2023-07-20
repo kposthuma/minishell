@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 17:13:06 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/20 12:40:01 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_list	**init_loc_var(void)
 	t_loc_var	*status;
 
 	loc_var = ft_calloc(sizeof(t_list *), 1);
-	status = ft_calloc(sizeof(t_loc_var *), 1);
+	status = ft_calloc(sizeof(t_loc_var), 1);
 	if (!loc_var || !status)
 		return (free(loc_var), free(status), NULL);
 	status->variable = ft_strdup("?");

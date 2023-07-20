@@ -6,18 +6,19 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/07/19 15:29:25 by kposthum      ########   odam.nl          #
+#    Updated: 2023/07/20 14:23:21 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-CC := gcc -Wall -Werror -Wextra
+CC := gcc -Wall -Werror -Wextra -g -fsanitize=address
 NAME := minishell
 SRCS := main.c\
 		mini_parse.c\
 		mini_init.c\
+		mini_expansion.c\
 		mini_infile.c\
 		mini_outfile.c\
-		mini_expansion.c\
+		mini_destruction.c\
 		mini_error.c\
 		mini_utils.c
 

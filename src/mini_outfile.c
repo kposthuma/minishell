@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 17:06:49 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/20 14:36:14 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // makes filename for the outfile struct
 static char	*make_filename(char *temp)
 {
-	while (*temp == '>' || ft_isspace(*temp) == 1)
+	while (*temp == '>' || ft_isspace(*temp) == 0)
 		temp++;
 	return (ft_strdup(temp));
 }
@@ -44,7 +44,6 @@ char	*check_outfile(t_commands *command, char *line)
 			return (mem_err(), free(line), NULL); //proper free everything plox
 		outf->append = check_append(temp);
 		outf->filename = make_filename(temp);
-		printf("filename: %s\n", outf->filename);
 		line = ft_string_snip(line, temp);
 		if (!outf->filename || !line)
 			return (mem_err(), free(line), NULL); //proper free everything plox
