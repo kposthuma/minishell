@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 14:36:47 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/20 16:37:18 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,29 @@
 
 static void	prinf(t_list **inf)
 {
-	t_list	*head = *inf;
 	t_inf	*yes;
 
-	while (head != NULL)
+	for (t_list	*head = *inf; head != NULL; head = head->nxt)
 	{
 		yes = (t_inf *)head->cnt;
 		if (yes->heredoc == true)
 			ft_printf("heredoc delimiter: %s\n", yes->filename);
 		else
 			ft_printf("infile name: %s\n", yes->filename);
-		head = head->nxt;
 	}
 }
 
 static void	proutf(t_list **outf)
 {
-	t_list	*head = *outf;
 	t_outf	*yes;
 
-	while (head != NULL)
+	for (t_list	*head = *outf; head != NULL; head = head->nxt)
 	{
 		yes = (t_outf *)head->cnt;
 		if (yes->append == true)
 			ft_printf("append, outfile name: %s\n", yes->filename);
 		else
 			ft_printf("truncate, outfile name: %s\n", yes->filename);
-		head = head->nxt;
 	}
 }
 
@@ -73,7 +69,10 @@ t_commands	*construct(char	*line)
 	line = check_infile(command, line);
 	line = check_outfile(command, line);
 	command->args = ft_split_whitespace(line);
-	command->command = ft_strdup(command->args[0]);
+	if (command->args[0] != NULL)
+		command->command = ft_strdup(command->args[0]);
+	else
+		command->command = NULL;
 	return (command);
 }
 

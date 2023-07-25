@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 17:10:25 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 15:24:19 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@ char	*ft_strchr_quotes(char *s, char c)
 	size_t			j;
 
 	i = 0;
-	j = ft_strlen(s) + 1;
+	j = ft_strlen(s);
 	while (i < j)
 	{
 		if (s[i] == '\"')
 		{
 			i++;
-			while (s[i] != '\"')
+			while (s[i] && s[i] != '\"')
 				i++;
 		}
 		if (s[i] == '\'')
 		{
 			i++;
-			while (s[i] != '\'')
+			while (s[i] && s[i] != '\'')
 				i++;
 		}
-		if (s[i] == c)
+		if (s[i] && s[i] == c)
 			return (&s[i]);
 		i++;
 	}
@@ -49,20 +49,32 @@ size_t	redir_len(char *line, char a)
 
 	i = 0;
 	len = 0;
-	while (line[i])
-	{
-		if (line[i] == a)
-		{
-			while (line[i + len] == a)
-				len++;
-			while (ft_isspace(line[i + len]) == 1)
-				len++;
-			while (is_bash_token(line[i + len]) == false && line[i + len]
-				&& ft_isspace(line[i + len]) == 0)
-				len++;
-			return (len);
-		}
+	while (line[i] && line[i] != a)
 		i++;
+	if (line[i] == a)
+	{
+		while (line[i + len] == a)
+			len++;
+		while (ft_isspace(line[i + len]) == 0)
+			len++;
+		if (line[i + len] == '\"')
+		{
+			len++;
+			while (line[i + len] != '\"')
+				len++;
+			return (len + 1);
+		}
+		if (line[i + len] == '\'')
+		{
+			len++;
+			while (line[i + len] != '\'')
+				len++;
+			return (len + 1);
+		}
+		while (is_bash_token(line[i + len]) == false && line[i + len]
+			&& ft_isspace(line[i + len]) == 0)
+			len++;
+		return (len);
 	}
 	return (len);
 }
