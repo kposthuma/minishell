@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 14:36:14 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 15:47:59 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 // makes filename for the outfile struct
 static char	*make_filename(char *temp)
 {
+	char	*trim;
+
 	while (*temp == '>' || ft_isspace(*temp) == 0)
 		temp++;
-	return (ft_strdup(temp));
+	trim = ft_strdup(temp);
+	return (ft_trim_quotes(trim));
 }
 
 // are we append, or are we truncate 

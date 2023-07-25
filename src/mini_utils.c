@@ -6,17 +6,32 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 15:24:19 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 16:30:32 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
 
+// takes a string, and removes quotations from the beginning and end, if any
+char	*ft_trim_quotes(char *s)
+{
+	char	*s2;
+
+	if (*s && (*s == '\'' || *s == '\"'))
+	{
+		s2 = ft_substr(s, 1, ft_strlen(s) - 1);
+		free(s);
+		return (s2);
+	}
+	else
+		return (s);
+}
+
 // ft_strchr, but skips over quotation marks
 char	*ft_strchr_quotes(char *s, char c)
 {
-	size_t			i;
-	size_t			j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = ft_strlen(s);
@@ -41,6 +56,15 @@ char	*ft_strchr_quotes(char *s, char c)
 	return (NULL);
 }
 
+// detemines the length of a string starting at position len up to delimiter a
+static size_t	ft_quotelen(char *line, char a, size_t len)
+{
+	len++;
+	while (line[len] != a)
+		len++;
+	return (len + 1);
+}
+
 // determines the lenght of filename for in or outfiles
 size_t	redir_len(char *line, char a)
 {
@@ -58,19 +82,9 @@ size_t	redir_len(char *line, char a)
 		while (ft_isspace(line[i + len]) == 0)
 			len++;
 		if (line[i + len] == '\"')
-		{
-			len++;
-			while (line[i + len] != '\"')
-				len++;
-			return (len + 1);
-		}
+			return (ft_quotelen(line, '\"', len + i) - i);
 		if (line[i + len] == '\'')
-		{
-			len++;
-			while (line[i + len] != '\'')
-				len++;
-			return (len + 1);
-		}
+			return (ft_quotelen(line, '\'', len + i) - i);
 		while (is_bash_token(line[i + len]) == false && line[i + len]
 			&& ft_isspace(line[i + len]) == 0)
 			len++;

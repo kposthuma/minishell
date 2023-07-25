@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 12:38:20 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 15:48:25 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void		syntax_error(char *string, char a);
 void		mem_err(void);
 
 // mini_utils.c
+char		*ft_trim_quotes(char *s);
 char		*ft_strchr_quotes(char *s, char c);
 size_t		redir_len(char *line, char a);
 char		*ft_string_snip(char *source, char	*snip);

@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 16:37:18 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 17:04:20 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@ static void	print_all_the_shit(t_input *cmd)
 	}
 }
 
+static char	**ft_trim_quotes_double(char **src)
+{
+	size_t	i;
+
+	i = 0;
+	while (src && src[i])
+	{
+		src[i] = ft_trim_quotes(src[i]);
+		i++;
+	}
+	return (src);
+}
+
 // makes the individual commands
 t_commands	*construct(char	*line)
 {
@@ -68,7 +81,7 @@ t_commands	*construct(char	*line)
 			free(command), NULL);
 	line = check_infile(command, line);
 	line = check_outfile(command, line);
-	command->args = ft_split_whitespace(line);
+	command->args = ft_trim_quotes_double(ft_split_whitespace(line));
 	if (command->args[0] != NULL)
 		command->command = ft_strdup(command->args[0]);
 	else
