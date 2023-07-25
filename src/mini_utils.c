@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 16:30:32 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 17:45:18 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_trim_quotes(char *s)
 
 	if (*s && (*s == '\'' || *s == '\"'))
 	{
-		s2 = ft_substr(s, 1, ft_strlen(s) - 1);
+		s2 = ft_substr(s, 1, ft_strlen(s) - 2);
 		free(s);
 		return (s2);
 	}
@@ -86,7 +86,7 @@ size_t	redir_len(char *line, char a)
 		if (line[i + len] == '\'')
 			return (ft_quotelen(line, '\'', len + i) - i);
 		while (is_bash_token(line[i + len]) == false && line[i + len]
-			&& ft_isspace(line[i + len]) == 0)
+			&& ft_isspace(line[i + len]) == 1)
 			len++;
 		return (len);
 	}

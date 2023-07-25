@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/22 12:54:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 14:35:39 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/25 17:44:15 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ static size_t	word_count(char *str)
 	j = 1;
 	while (str[i])
 	{
-		while (ft_isspace(str[i]) != 1)
+		while (str[i] && ft_isspace(str[i]) != 1)
 			i++;
-		if (ft_isspace(str[i]) == 1 && str[i])
+		if (str[i] && ft_isspace(str[i]) == 1)
 			j++;
 		i += incrementer(str, i);
-		while (ft_isspace(str[i]) == 1 && str[i])
+		while (str[i] && ft_isspace(str[i]) == 1)
 			i++;
 	}
 	return (j);
