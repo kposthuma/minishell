@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 16:50:39 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 14:16:21 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,23 @@ char	*mini_expansion(char *line, t_list **loc_var)
 {
 	size_t		i;
 	t_list		*var;
+	char		*str;
 
 	i = 0;
 	var = *loc_var;
-	while (line[i])
+	str = ft_strdup(line);
+	while (str[i])
 	{
-		if (line[i] == '\'')
+		if (str[i] == '\'')
 		{
 			i++;
-			while (line[i] != '\'')
+			while (str[i] != '\'')
 				i++;
 		}
-		if (line[i] == '$')
-		{
-			line = expand(line, i, var);
-			i--;
-		}
+		if (str[i] == '$')
+			str = expand(str, i, var);
 		else
 			i++;
 	}
-	return (line);
+	return (str);
 }

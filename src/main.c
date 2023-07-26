@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 17:14:15 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 14:07:59 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ int	main(void)
 			return (free(line), 0);
 		if (line && *line)
 			add_history(line);
-		if (parse_line(line) == true)
-			set_status(loc_var, initialize(line, loc_var));
+		set_status(loc_var, initialize(line, loc_var));
 		free(line);
 		line = NULL;
 	}

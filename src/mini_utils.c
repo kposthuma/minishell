@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 17:45:18 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 15:55:38 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,28 @@ char	*ft_trim_quotes(char *s)
 {
 	char	*s2;
 
-	if (*s && (*s == '\'' || *s == '\"'))
+	s2 = s;
+	while (s2 && *s2)
 	{
-		s2 = ft_substr(s, 1, ft_strlen(s) - 2);
-		free(s);
-		return (s2);
+		if (*s2 == '\'')
+		{
+			s2 = ft_memmove(s2, (s2 + 1), ft_strlen(s2));
+			s2++;
+			while (*s2 && *s2 != '\'')
+				s2++;
+			s2 = ft_memmove(s2, (s2 + 1), ft_strlen(s2));
+		}
+		if (*s2 == '\"')
+		{
+			s2 = ft_memmove(s2, (s2 + 1), ft_strlen(s2));
+			s2++;
+			while (*s2 && *s2 != '\"')
+				s2++;
+			s2 = ft_memmove(s2, (s2 + 1), ft_strlen(s2));
+		}
+		s2++;
 	}
-	else
-		return (s);
+	return (s);
 }
 
 // ft_strchr, but skips over quotation marks

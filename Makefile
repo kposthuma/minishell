@@ -6,7 +6,7 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/07/25 15:19:29 by kposthum      ########   odam.nl          #
+#    Updated: 2023/07/26 14:29:08 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS := main.c\
 		mini_outfile.c\
 		mini_destruction.c\
 		mini_error.c\
-		mini_utils.c
+		mini_utils.c\
+		mini_testprint.c
 
 HEADERS	:= -I ./libft/include -I ./include -I /Users/$(USER)/.brew/opt/readline/include
 LIBFT := ./libft/libft.a

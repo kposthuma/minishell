@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 15:48:25 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 14:34:39 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char		*check_infile(t_commands *command, char *input);
 char		*check_outfile(t_commands *command, char *input);
 
 // mini_destruction.c
+void		free_cmd(t_input *cmd, size_t i);
 void		destroy_cmd(t_input *cmd);
 
 // mini_error.c
@@ -111,5 +112,7 @@ size_t		redir_len(char *line, char a);
 char		*ft_string_snip(char *source, char	*snip);
 char		*ft_strjointhree(char *str1, char *str2, char *str3);
 char		*ft_substr_sub(char *src, char *str1, char *str2);
+
+void		print_all_the_shit(t_input *cmd);
 
 #endif

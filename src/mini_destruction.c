@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 12:28:08 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/20 12:37:32 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 14:34:49 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ static void	free_outfile(t_list **outf)
 		head = head->nxt;
 	}
 	ft_lstclear(outf);
+}
+
+void	free_cmd(t_input *cmd, size_t i)
+{
+	i--;
+	while (i >= 0)
+	{
+		free_infile(cmd->commands[i]->infiles);
+		free_outfile(cmd->commands[i]->outfiles);
+		free(cmd->commands[i]->command);
+		ft_free(cmd->commands[i]->args);
+		free(cmd->commands[i]);
+		i--;
+	}
+	free(cmd->commands);
+	free(cmd);
 }
 
 void	destroy_cmd(t_input *cmd)
