@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/26 15:33:49 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 17:17:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**ft_trim_quotes_double(char **src)
 	return (src);
 }
 
-// makes the individual commands
+// makes the individual command structs
 static t_commands	*construct_command(char	**line, size_t i)
 {
 	t_commands	*command;
@@ -49,10 +49,10 @@ static t_commands	*construct_command(char	**line, size_t i)
 		return (free(command->infiles), free(command->outfiles),
 			free(command), NULL);
 	command->args = ft_trim_quotes_double(ft_split_whitespace(line[i]));
-	if (command->args[0] != NULL)
-		command->command = ft_strdup(command->args[0]);
-	else
-		command->command = NULL;
+	if (!command->args)
+		return (free(command->infiles), free(command->outfiles),
+			free(command), free(line[i]), line[i] = NULL, NULL);
+	command->command = ft_strdup(command->args[0]);
 	return (command);
 }
 

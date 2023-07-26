@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 17:39:21 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 17:02:31 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ static bool	check_heredoc(char *temp)
 		return (false);
 }
 
+static void	mem_fail_dest(char *temp, t_inf *inf, char *line)
+{
+	free(temp);
+	free(inf->filename);
+	free(inf);
+	free(line);
+}
+
 // check if there are any infile redirects
 char	*check_infile(t_commands *command, char *line)
 {
@@ -44,13 +52,15 @@ char	*check_infile(t_commands *command, char *line)
 		temp = ft_substr(ft_strchr_quotes(line, '<'), 0, redir_len(line, '<'));
 		inf = ft_calloc(sizeof(t_inf), 1);
 		if (!temp || !inf)
-			return (NULL); //proper free everything plox
+			return (free(temp), free(inf), NULL);
 		inf->heredoc = check_heredoc(temp);
 		inf->filename = make_filename(temp);
 		line = ft_string_snip(line, temp);
 		if (!inf->filename || !line)
-			return (mem_err(), free(line), NULL); //proper free everything plox
+			return (mem_fail_dest(temp, inf, line), NULL);
 		new = ft_lstnew((void *)inf);
+		if (!new)
+			return (mem_fail_dest(temp, inf, line), NULL);
 		ft_lstadd_back(command->infiles, new);
 		free(temp);
 	}

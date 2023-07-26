@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/25 17:40:03 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/26 17:04:04 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ static bool	check_append(char *temp)
 		return (false);
 }
 
+static void	mem_fail_dest(char *temp, t_outf *outf, char *line)
+{
+	free(temp);
+	free(outf->filename);
+	free(outf);
+	free(line);
+}
+
 // checks if there are any outfile redirects
 char	*check_outfile(t_commands *command, char *line)
 {
@@ -44,13 +52,15 @@ char	*check_outfile(t_commands *command, char *line)
 		temp = ft_substr(ft_strchr_quotes(line, '>'), 0, redir_len(line, '>'));
 		outf = ft_calloc(sizeof(t_outf), 1);
 		if (!temp || !outf)
-			return (mem_err(), free(line), NULL); //proper free everything plox
+			return (free(temp), free(outf), NULL);
 		outf->append = check_append(temp);
 		outf->filename = make_filename(temp);
 		line = ft_string_snip(line, temp);
 		if (!outf->filename || !line)
-			return (mem_err(), free(line), NULL); //proper free everything plox
+			return (mem_fail_dest(temp, outf, line), NULL);
 		new = ft_lstnew((void *)outf);
+		if (!new)
+			return (mem_fail_dest(temp, outf, line), NULL);
 		ft_lstadd_back(command->outfiles, new);
 		free(temp);
 	}
