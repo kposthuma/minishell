@@ -6,64 +6,22 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/26 14:07:59 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/27 14:43:27 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include<minishell_parsing.h>
-
-// WIP
-void	sigfunc(int signum)
-{
-	printf("aapjes, %i", signum);
-}
-
-//initializes a linked list of locally stored variables
-// and sets the initial status to 0
-static t_list	**init_loc_var(void)
-{
-	t_list		**loc_var;
-	t_list		*new;
-	t_loc_var	*status;
-
-	loc_var = ft_calloc(sizeof(t_list *), 1);
-	status = ft_calloc(sizeof(t_loc_var), 1);
-	if (!loc_var || !status)
-		return (free(loc_var), free(status), NULL);
-	status->variable = ft_strdup("?");
-	status->value = ft_strdup("0");
-	if (!status->variable || !status->value)
-		return (free(status->variable), free(status->value),
-			free(status), free(loc_var), NULL);
-	new = ft_lstnew((void *)status);
-	if (!new)
-		return (free(status->variable), free(status->value),
-			free(status), free(loc_var), NULL);
-	ft_lstadd_front(loc_var, new);
-	return (loc_var);
-}
-
-// execute part should retrun the exit status, gets saved here
-static void	set_status(t_list **loc_var, int status)
-{
-	t_list		*new;
-	t_loc_var	*num;
-
-	new = *loc_var;
-	num = (t_loc_var *)new->cnt;
-	free(num->value);
-	num->value = ft_itoa(status);
-}
 
 int	main(void)
 {
 	static char	*line;
 	t_list		**loc_var;
 
-	signal(SIGINT, sigfunc);
+	sigfunc();
 	loc_var = init_loc_var();
 	if (!loc_var)
 		return (mem_err(), 1);
+	rl_replace_line("KAAS% ", 0);
 	while (true)
 	{
 		line = readline("KAAS% ");
@@ -72,8 +30,10 @@ int	main(void)
 		if (ft_strncmp(line, "exit", 4) == 0)
 			return (free(line), 0);
 		if (line && *line)
+		{
 			add_history(line);
-		set_status(loc_var, initialize(line, loc_var));
+			set_status(loc_var, initialize(line, loc_var));
+		}
 		free(line);
 		line = NULL;
 	}

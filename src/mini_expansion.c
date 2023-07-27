@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/26 14:16:21 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/27 15:55:01 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ char	*expand(char *line, size_t i, t_list *var)
 	j -= i;
 	name = ft_substr(line, i, j);
 	sub = find_sub(var, name);
+	if (!name || !sub)
+		return (free(name), free(sub), NULL);
 	sub = ft_trim_quotes(sub);
 	line = ft_substr_sub(line, name, sub);
+	free(name);
+	free(sub);
 	return (line);
 }
 
@@ -61,6 +65,8 @@ char	*mini_expansion(char *line, t_list **loc_var)
 	i = 0;
 	var = *loc_var;
 	str = ft_strdup(line);
+	if (!str)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -71,6 +77,8 @@ char	*mini_expansion(char *line, t_list **loc_var)
 		}
 		if (str[i] == '$')
 			str = expand(str, i, var);
+		if (!str)
+			return (NULL);
 		else
 			i++;
 	}

@@ -6,13 +6,15 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/07/26 14:29:08 by kposthum      ########   odam.nl          #
+#    Updated: 2023/07/27 14:43:04 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 CC := gcc -Wall -Werror -Wextra -g -fsanitize=address
 NAME := minishell
 SRCS := main.c\
+		mini_signal.c\
+		mini_loc_var.c\
 		mini_parse.c\
 		mini_init.c\
 		mini_expansion.c\
@@ -25,7 +27,7 @@ SRCS := main.c\
 
 HEADERS	:= -I ./libft/include -I ./include -I /Users/$(USER)/.brew/opt/readline/include
 LIBFT := ./libft/libft.a
-LIBS := -lreadline
+LIBS := -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 SRCDIR := ./src
 OBJDIR := ./obj
 OBJS :=	$(addprefix $(OBJDIR)/,$(SRCS:.c=.o))

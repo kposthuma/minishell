@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/26 14:34:39 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/27 15:42:43 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,14 @@ typedef struct s_input
 }	t_input;
 
 // main.c
-void		sigfunc(int signum);
+
+// mini_signal.h
+void		sigfunc(void);
+
+// mini_loc_var.c
+t_list		**init_loc_var(void);
+void		set_status(t_list **loc_var, int status);
+char		**check_vars(char **args, t_input *cmd);
 
 // mini_parse.c
 size_t		check_quotes(char *line, char q);
@@ -85,7 +92,6 @@ char		check_redirects(char *line);
 bool		parse_line(char *line);
 
 // mini_init.c
-t_commands	*construct(char	*line);
 int			initialize(char *line, t_list **loc_var);
 
 // mini_expansion.c
@@ -98,6 +104,7 @@ char		*check_infile(t_commands *command, char *input);
 char		*check_outfile(t_commands *command, char *input);
 
 // mini_destruction.c
+void		free_command_struct(t_commands *command);
 void		free_cmd(t_input *cmd, size_t i);
 void		destroy_cmd(t_input *cmd);
 

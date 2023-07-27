@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/26 15:58:06 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/27 13:02:55 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	*ft_strchr_quotes(char *s, char c)
 	return (NULL);
 }
 
-// detemines the length of a string starting at position len up to delimiter a
+// detemines the length of a string line starting at position len
+// up to and including delimiter a, assuming line[len] == a
 static size_t	ft_quotelen(char *line, char a, size_t len)
 {
 	len++;

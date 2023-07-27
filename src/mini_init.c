@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/26 17:17:03 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/27 15:49:07 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ static char	**ft_trim_quotes_double(char **src)
 	return (src);
 }
 
+static	void	construct_command(t_commands *command)
+{
+	if (!command->args[0])
+		command->command = NULL;
+	else
+		command->command = ft_strdup(command->args[0]);
+}
+
 // makes the individual command structs
-static t_commands	*construct_command(char	**line, size_t i)
+static t_commands	*construct_argument(char **line, size_t i, t_input *cmd)
 {
 	t_commands	*command;
 
@@ -42,20 +50,19 @@ static t_commands	*construct_command(char	**line, size_t i)
 			free(command), NULL);
 	line[i] = check_infile(command, line[i]);
 	if (!line[i])
-		return (free(command->infiles), free(command->outfiles),
-			free(command), NULL);
+		return (free_command_struct(command), NULL);
 	line[i] = check_outfile(command, line[i]);
 	if (!line[i])
-		return (free(command->infiles), free(command->outfiles),
-			free(command), NULL);
+		return (free_command_struct(command), NULL);
 	command->args = ft_trim_quotes_double(ft_split_whitespace(line[i]));
 	if (!command->args)
-		return (free(command->infiles), free(command->outfiles),
-			free(command), free(line[i]), line[i] = NULL, NULL);
-	command->command = ft_strdup(command->args[0]);
+		return (free_command_struct(command), free(line[i]), NULL);
+	command->args = check_vars(command->args, cmd);
+	construct_command(command);
 	return (command);
 }
 
+// split up for fewer lines per function
 static t_input	*build_cmd(char *line, char **temp, t_list **loc_var)
 {
 	t_input		*cmd;
@@ -72,7 +79,7 @@ static t_input	*build_cmd(char *line, char **temp, t_list **loc_var)
 	i = 0;
 	while (cmd != NULL && i < cmd->comm_nr)
 	{
-		cmd->commands[i] = construct_command(temp, i);
+		cmd->commands[i] = construct_argument(temp, i, cmd);
 		if (!cmd->commands[i])
 			return (free_cmd(cmd, i), NULL);
 		i++;
@@ -83,16 +90,18 @@ static t_input	*build_cmd(char *line, char **temp, t_list **loc_var)
 // makes the main struct to be passed to the executor
 int	initialize(char *line, t_list **loc_var)
 {
+	// int			stat;
 	t_input		*cmd;
 	char		*str;
 	char		**temp;
-	// int			stat;
 
 	if (parse_line(line) == false)
 		return (258);
 	str = mini_expansion(line, loc_var);
 	if (!str)
 		return (mem_err(), 1);
+	if (ft_strlen(str) == 0)
+		return (0);
 	temp = ft_split_quotes(str, '|');
 	if (!temp)
 		return (mem_err(), free(str), 1);
@@ -105,4 +114,5 @@ int	initialize(char *line, t_list **loc_var)
 	// stat = executor(cmd);
 	destroy_cmd(cmd);
 	return (ft_strlen(line));
+	// return (stat);
 }
