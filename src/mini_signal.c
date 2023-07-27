@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 13:00:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/27 14:11:02 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/07/27 16:44:05 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@ static void	signal_int(int signum)
 	}
 }
 
+static void	handle_control(void)
+{
+	struct termios	terminal;
+
+	tcgetattr(STDIN_FILENO, &terminal);
+	terminal.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
+}
+
 // WIP
 void	sigfunc(void)
 {
 	struct sigaction	sign;
 
+	handle_control();
 	sign.sa_handler = signal_int;
 	sigemptyset(&sign.sa_mask);
 	sign.sa_flags = SA_RESTART;
