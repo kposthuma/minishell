@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/16 14:04:10 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:51:21 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 16:57:33 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_list	*ft_lstlast(t_list *lst)
 
 	pnt = lst;
 	if (!lst)
-		return (0);
-	while (lst->nxt != 0 && lst->nxt != pnt)
+		return (NULL);
+	while (lst->nxt != NULL && lst->nxt != pnt)
 		lst = lst->nxt;
 	return (lst);
 }
