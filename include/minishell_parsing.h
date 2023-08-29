@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:50:03 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 16:31:15 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ typedef struct s_input
 	t_commands	**commands;
 	t_list		**loc_var;
 }	t_input;
+
+// parsing struct
+typedef struct s_parse
+{
+	char	*token;
+	t_parse	*next;
+	t_parse	*last;
+}	t_parse;
 
 // main.c
 

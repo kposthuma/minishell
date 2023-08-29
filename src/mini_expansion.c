@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 16:27:36 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ char	*find_sub(t_list *var, char *name)
 	{
 		tmp = (t_loc_var *)var->cnt;
 		if (ft_strncmp(tmp->variable, name + 1, ft_strlen(name)) == 0)
-			return (ft_strdup(tmp->value));
+			return (tmp->value);
 		var = var->nxt;
 	}
-	return (ft_strdup(""));
+	return ("");
 }
 
 // finds the name of the variable to expand and replaces it
@@ -44,13 +44,12 @@ char	*expand(char *line, size_t i, t_list *var)
 		j++;
 	j -= i;
 	name = ft_substr(line, i, j);
+	if (!name)
+		return (free(name), NULL);
 	sub = find_sub(var, name);
-	if (!name || !sub)
-		return (free(name), free(sub), NULL);
 	sub = ft_trim_quotes(sub);
 	line = ft_substr_sub(line, name, sub);
 	free(name);
-	free(sub);
 	return (line);
 }
 
