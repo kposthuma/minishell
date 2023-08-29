@@ -6,28 +6,28 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/27 15:42:43 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:50:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_PARSING_H
 # define MINISHELL_PARSING_H
 
-# include<stdlib.h>
-# include<unistd.h>
-# include<stdio.h>
-# include<fcntl.h>
-# include<signal.h>
-# include<dirent.h>
-# include<termios.h>
-# include<curses.h>
-# include<term.h>
-# include<sys/wait.h>
-# include<sys/stat.h>
-# include<sys/ioctl.h>
-# include<readline/readline.h>
-# include<readline/history.h>
-# include<libft.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <signal.h>
+# include <dirent.h>
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
+# include <sys/ioctl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <libft.h>
 
 // locally assigned variable struct
 // useful for expansion, node 1 reserved for exit code?

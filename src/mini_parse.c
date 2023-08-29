@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/19 15:28:03 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<minishell_parsing.h>
+#include <minishell_parsing.h>
 
 // checks if there are any unclosed quotations
 size_t	check_quotes(char *line, char q)

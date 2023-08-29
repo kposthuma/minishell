@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 11:41:48 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/21 14:59:29 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:50:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"get_next_line.h"
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
@@ -85,8 +85,8 @@ char	*ft_nextline(char *string)
 	return (nextline);
 }
 
-// #include<fcntl.h>
-// # include<stdio.h>
+// #include <fcntl.h>
+// # include <stdio.h>
 
 // int	main(void)
 // {

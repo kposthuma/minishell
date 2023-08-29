@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/27 13:02:55 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<minishell_parsing.h>
+#include <minishell_parsing.h>
 
 // takes a string, and removes quotations from the beginning and end, if any
 char	*ft_trim_quotes(char *s)

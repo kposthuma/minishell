@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:42:11 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/27 15:49:43 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<minishell_parsing.h>
+#include <minishell_parsing.h>
 
 //initializes a linked list of locally stored variables
 // and sets the initial status to 0

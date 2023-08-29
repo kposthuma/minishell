@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 12:15:35 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/03/16 11:40:37 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:52:04 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_printf_putchar(char c)
 {
@@ -43,7 +43,7 @@ int	ft_printf_putnbr(unsigned int n)
 	{
 		t = t / 10;
 		len++;
-	}	
+	}
 	if (n < 10)
 		ft_printf_putchar(n + 48);
 	else

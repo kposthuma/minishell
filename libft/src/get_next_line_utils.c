@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 11:42:07 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/21 14:59:36 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"get_next_line.h"
+#include "get_next_line.h"
 
 size_t	ft_strlengnl(char *s)
 {

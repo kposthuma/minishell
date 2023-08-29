@@ -6,14 +6,14 @@
 /*   By: kposthum <kposthum@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 11:42:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/21 14:59:13 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:50:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include<stdlib.h>
-# include<unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 200000

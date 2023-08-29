@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 11:52:18 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/03/16 11:41:48 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:51:51 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"ft_printf.h"
+#include "ft_printf.h"
 
 static int	ft_hexupp(unsigned int n)
 {
@@ -43,7 +43,7 @@ int	ft_printf_puthex(unsigned int n, const char A)
 	{
 		t = t / 16;
 		len++;
-	}	
+	}
 	if (n < 16)
 	{
 		if (A == 'x')
@@ -107,7 +107,7 @@ int	ft_printf(const char *iets, ...)
 	return (val);
 }
 
-// #include<stdio.h>
+// #include <stdio.h>
 // int	main(void)
 // {
 // 	char	c = 125;

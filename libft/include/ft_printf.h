@@ -6,16 +6,16 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 11:58:45 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/03/26 13:41:09 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:50:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdarg.h>
 
 int		ft_printf(const char *iets, ...);
 int		ft_printf_decider(const char iets, va_list args);

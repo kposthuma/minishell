@@ -6,11 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 12:28:08 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/07/27 14:39:11 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<minishell_parsing.h>
+#include <minishell_parsing.h>
 
 static void	free_infile(t_list **inf)
 {

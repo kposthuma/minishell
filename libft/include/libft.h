@@ -6,19 +6,19 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/03 16:53:22 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/06/22 13:47:02 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/29 13:50:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<stdarg.h>
-# include<fcntl.h>
-# include"get_next_line.h"
-# include"ft_printf.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <fcntl.h>
+# include "get_next_line.h"
+# include "ft_printf.h"
 
 typedef struct s_list
 {
