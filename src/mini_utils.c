@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/30 16:40:41 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,4 +167,13 @@ char	*ft_substr_sub(char *src, char *str1, char *str2)
 	if (!new)
 		return (free(src), free(left), free(right), NULL);
 	return (free(src), free(left), free(right), new);
+}
+
+// because certain tokens cannot be used in certain instances
+bool	is_bash_token(char a)
+{
+	if (a == '|' || a == '&' || a == ';'
+		|| a == '(' || a == ')' || a == '>' || a == '<')
+		return (true);
+	return (false);
 }

@@ -6,19 +6,34 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/29 16:32:06 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 17:11:40 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/31 15:30:59 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
 
+void	clear_list(t_parse **head)
+{
+	t_parse	*temp;
+	t_parse	*node;
+
+	node = *head;
+	while (node->next != NULL)
+	{
+		temp = node->next;
+		free(node);
+		node = temp;
+	}
+	free(head);
+}
+
 t_parse	*make_node(char *line)
 {
 	t_parse	*node;
 
-	node = ft_calloc(sizeof(t_parse *), 1);
+	node = ft_calloc(sizeof(t_parse), 1);
 	if (!node)
-		return (mem_err(), NULL);
+		return (NULL);
 	node->token = line;
 	node->next = NULL;
 	node->last = NULL;
@@ -29,8 +44,8 @@ void	list_add_tok(t_parse **head, t_parse *token)
 {
 	t_parse	*final;
 
-	if (head == NULL)
-		*head = token;
+	if (!*head)
+		head = &token;
 	else
 	{
 		final = *head;
@@ -41,21 +56,29 @@ void	list_add_tok(t_parse **head, t_parse *token)
 	}
 }
 
-bool	parsing(char *line)
+t_parse	**tokenize_line(char *line)
 {
 	t_parse	**head;
 	t_parse	*token;
 
 	head = ft_calloc(sizeof(t_parse *), 1);
 	if (!head)
-		return (mem_err(), false);
-	while (line != NULL)
+		return (mem_err(), NULL);
+	while (*line)
 	{
 		token = make_node(line);
 		if (!token)
-			break ;
+			return (mem_err(), clear_list(head), NULL);
 		list_add_tok(head, token);
-		while (is_bash_token(*line) == false && line != NULL)
-			line += 1;
+		if (is_bash_token(*line) == true)
+			line++;
+		else if (is_bash_token(*line) == false)
+		{
+			while (is_bash_token(*line) == false && *line)
+				line++;
+		}
+		while (ft_isspace(*line) == 0 && *line)
+			line++;
 	}
+	return (head);
 }

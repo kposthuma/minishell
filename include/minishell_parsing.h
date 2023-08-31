@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 16:31:15 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/31 15:30:08 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ typedef struct s_input
 // parsing struct
 typedef struct s_parse
 {
-	char	*token;
-	t_parse	*next;
-	t_parse	*last;
+	char			*token;
+	struct s_parse	*next;
+	struct s_parse	*last;
 }	t_parse;
 
 // main.c
@@ -94,10 +94,12 @@ void		set_status(t_list **loc_var, int status);
 char		**check_vars(char **args, t_input *cmd);
 
 // mini_parse.c
-size_t		check_quotes(char *line, char q);
-bool		is_bash_token(char a);
-char		check_redirects(char *line);
+size_t		check_quotes(char *line, char q1, char q2);
 bool		parse_line(char *line);
+
+// mini_parse_utils.c
+void		clear_list(t_parse **head);
+t_parse		**tokenize_line(char *line);
 
 // mini_init.c
 int			initialize(char *line, t_list **loc_var);
@@ -127,6 +129,7 @@ size_t		redir_len(char *line, char a);
 char		*ft_string_snip(char *source, char	*snip);
 char		*ft_strjointhree(char *str1, char *str2, char *str3);
 char		*ft_substr_sub(char *src, char *str1, char *str2);
+bool		is_bash_token(char a);
 
 void		print_all_the_shit(t_input *cmd);
 
