@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 16:27:36 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/31 15:34:31 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*expand(char *line, size_t i, t_list *var)
 	char	*sub;
 
 	j = i;
-	while (line[j] && ft_isspace(line[j])
+	while (line[j] && !ft_isspace(line[j])
 		&& line[j] != '\"' && line[j] != '\'')
 		j++;
 	j -= i;

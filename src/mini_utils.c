@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/11 18:43:57 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/30 16:40:41 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/31 16:24:36 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ size_t	redir_len(char *line, char a)
 	{
 		while (line[i + len] == a)
 			len++;
-		while (ft_isspace(line[i + len]) == 0)
+		while (ft_isspace(line[i + len]) == 1)
 			len++;
 		if (line[i + len] == '\"')
 			return (ft_quotelen(line, '\"', len + i) - i);
 		if (line[i + len] == '\'')
 			return (ft_quotelen(line, '\'', len + i) - i);
-		while (is_bash_token(line[i + len]) == false && line[i + len]
-			&& ft_isspace(line[i + len]) == 1)
+		while (is_bash_tok(line[i + len]) == false && line[i + len]
+			&& ft_isspace(line[i + len]) == 0)
 			len++;
 		return (len);
 	}
@@ -170,7 +170,7 @@ char	*ft_substr_sub(char *src, char *str1, char *str2)
 }
 
 // because certain tokens cannot be used in certain instances
-bool	is_bash_token(char a)
+bool	is_bash_tok(char a)
 {
 	if (a == '|' || a == '&' || a == ';'
 		|| a == '(' || a == ')' || a == '>' || a == '<')

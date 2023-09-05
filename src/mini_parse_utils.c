@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/29 16:32:06 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/31 15:30:59 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/31 16:59:45 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	clear_list(t_parse **head)
 {
 	t_parse	*temp;
-	t_parse	*node;
+	t_parse	*curr;
 
-	node = *head;
-	while (node->next != NULL)
+	temp = *head;
+	while (temp != NULL)
 	{
-		temp = node->next;
-		free(node);
-		node = temp;
+		curr = temp;
+		temp = temp->next;
+		free(curr);
 	}
 	free(head);
 }
@@ -40,19 +40,29 @@ t_parse	*make_node(char *line)
 	return (node);
 }
 
+t_parse	*list_final(t_parse *list)
+{
+	t_parse	*fin;
+
+	fin = list;
+	if (!list)
+		return (NULL);
+	while (list->next != NULL)
+		list = list->next;
+	return (list);
+}
+
 void	list_add_tok(t_parse **head, t_parse *token)
 {
 	t_parse	*final;
 
 	if (!*head)
-		head = &token;
+		*head = token;
 	else
 	{
-		final = *head;
-		while (final->next != NULL)
-			final = final->next;
-		token->last = final;
+		final = list_final(*head);
 		final->next = token;
+		token->last = final;
 	}
 }
 
@@ -64,20 +74,20 @@ t_parse	**tokenize_line(char *line)
 	head = ft_calloc(sizeof(t_parse *), 1);
 	if (!head)
 		return (mem_err(), NULL);
-	while (*line)
+	while (*line != '\0')
 	{
 		token = make_node(line);
 		if (!token)
 			return (mem_err(), clear_list(head), NULL);
 		list_add_tok(head, token);
-		if (is_bash_token(*line) == true)
+		if (is_bash_tok(*line) == true)
 			line++;
-		else if (is_bash_token(*line) == false)
+		else if (is_bash_tok(*line) == false)
 		{
-			while (is_bash_token(*line) == false && *line)
+			while (*line && is_bash_tok(*line) == false && isspace(*line) == 0)
 				line++;
 		}
-		while (ft_isspace(*line) == 0 && *line)
+		while (*line != '\0' && ft_isspace(*line) == 1)
 			line++;
 	}
 	return (head);

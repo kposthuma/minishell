@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/08/31 15:34:29 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*make_filename(char *temp)
 {
 	char	*trim;
 
-	while (*temp && (*temp == '>' || ft_isspace(*temp) == 0))
+	while (*temp && (*temp == '>' || ft_isspace(*temp) == 1))
 		temp++;
 	trim = ft_strdup(temp);
 	return (ft_trim_quotes(trim));
