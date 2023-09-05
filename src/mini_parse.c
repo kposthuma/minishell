@@ -6,51 +6,14 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/31 17:00:07 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/05 16:11:01 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
 
-// mostly here so >>> or <<< doesn't work
-// static char	redir_arrows(char *line, char a, size_t i)
-// {
-// 	size_t	j;
-
-// 	j = 0;
-// 	while (line[i] == a)
-// 	{
-// 		i++;
-// 		j++;
-// 		if (j > 2)
-// 			return (line[i - 1]);
-// 		if ((a == '>' && line[i] == '<') || (a == '<' && line[i] == '>')
-// 			|| is_bash_tok(line[i]) == true)
-// 			return (line[i]);
-// 		if (!line[i])
-// 			return ('\n');
-// 	}
-// 	return (0);
-// }
-
-// char	check_redirects(char *line)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (line[i])
-// 	{
-// 		if (redir_arrows(line, '<', i) != 0)
-// 			return (redir_arrows(line, '<', i));
-// 		if (redir_arrows(line, '>', i) != 0)
-// 			return (redir_arrows(line, '>', i));
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 // checks if there are any unclosed quotations
-size_t	check_quotes(char *line)
+bool	check_quotes(char *line)
 {
 	size_t	i;
 
@@ -70,10 +33,10 @@ size_t	check_quotes(char *line)
 				i++;
 		}
 		if (line[i] == '\0')
-			return (1);
+			return (false);
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
 bool	check_redir(t_parse *node, char a)
@@ -141,7 +104,7 @@ bool	parse_line(char *line)
 	t_parse	**head;
 	bool	check;
 
-	if (check_quotes(line) == 1)
+	if (check_quotes(line) == false)
 		return (syntax_error("Syntax error: Unclosed quotations.", 0), false);
 	head = tokenize_line(line);
 	check = check_list(head);

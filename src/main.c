@@ -6,11 +6,16 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/05 14:51:37 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
+
+// void	f(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int	main(void)
 {

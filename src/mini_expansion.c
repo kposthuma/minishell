@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/31 15:34:31 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/05 15:31:40 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ char	*expand(char *line, size_t i, t_list *var)
 	return (line);
 }
 
+static size_t	skip_single_quotes(size_t i, char *str)
+{
+	i++;
+	while (str[i] && str[i] != '\'')
+		i++;
+	return (i);
+}
+
 // looks for '$' to expand environmental variables,
 // except in between single quotes
 char	*mini_expansion(char *line, t_list **loc_var)
@@ -66,20 +74,16 @@ char	*mini_expansion(char *line, t_list **loc_var)
 	str = ft_strdup(line);
 	if (!str)
 		return (NULL);
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] != '\'')
-				i++;
-		}
+			i = skip_single_quotes(i, str);
 		if (str[i] == '$')
 			str = expand(str, i, var);
+		else if (str[i])
+			i++;
 		if (!str)
 			return (NULL);
-		else
-			i++;
 	}
 	return (str);
 }
