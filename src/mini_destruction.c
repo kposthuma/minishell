@@ -54,7 +54,7 @@ void	free_cmd(t_input *cmd, size_t i)
 	if (i != 0)
 	{
 		i--;
-		while (i >= 0)
+		while (i > 0)
 		{
 			free_infile(cmd->commands[i]->infiles);
 			free_outfile(cmd->commands[i]->outfiles);

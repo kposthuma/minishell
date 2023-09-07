@@ -94,7 +94,7 @@ void		set_status(t_list **loc_var, int status);
 char		**check_vars(char **args, t_input *cmd);
 
 // mini_parse.c
-size_t		check_quotes(char *line);
+// size_t		check_quotes(char *line);
 bool		parse_line(char *line);
 
 // mini_parse_utils.c

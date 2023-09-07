@@ -42,9 +42,6 @@ t_parse	*make_node(char *line)
 
 t_parse	*list_final(t_parse *list)
 {
-	t_parse	*fin;
-
-	fin = list;
 	if (!list)
 		return (NULL);
 	while (list->next != NULL)
