@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/31 16:23:53 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/10 15:00:13 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void		set_status(t_list **loc_var, int status);
 char		**check_vars(char **args, t_input *cmd);
 
 // mini_parse.c
-// size_t		check_quotes(char *line);
 bool		parse_line(char *line);
 
 // mini_parse_utils.c
@@ -124,13 +123,17 @@ void		syntax_error(char *string, char a);
 void		mem_err(void);
 
 // mini_utils.c
-char		*ft_trim_quotes(char *s);
+bool		check_quotes(char *line);
 char		*ft_strchr_quotes(char *s, char c);
 size_t		redir_len(char *line, char a);
+bool		is_bash_tok(char a);
+
+// mini_utils_string.c
+char		*ft_trim_quotes(char *s);
 char		*ft_string_snip(char *source, char	*snip);
 char		*ft_strjointhree(char *str1, char *str2, char *str3);
 char		*ft_substr_sub(char *src, char *str1, char *str2);
-bool		is_bash_tok(char a);
+
 
 void		print_all_the_shit(t_input *cmd);
 

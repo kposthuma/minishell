@@ -6,38 +6,11 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/05 16:11:01 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/10 14:57:39 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
-
-// checks if there are any unclosed quotations
-bool	check_quotes(char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'')
-		{
-			i++;
-			while (line[i] != '\0' && line[i] != '\'')
-				i++;
-		}
-		if (line[i] == '\"')
-		{
-			i++;
-			while (line[i] != '\0' && line[i] != '\"')
-				i++;
-		}
-		if (line[i] == '\0')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 bool	check_redir(t_parse *node, char a)
 {
@@ -63,7 +36,8 @@ bool	check_pipe(t_parse *node)
 		return (false);
 	a = node->next->token[0];
 	if (a == '|' || a == '&' || a == ';' || a == '(' || a == ')')
-		return (false);
+		return (syntax_error("near unexpected token",
+				node->next->token[0]), false);
 	return (true);
 }
 

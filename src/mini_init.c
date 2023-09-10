@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/10 14:05:30 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/10 14:40:32 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ static t_input	*build_cmd(char *line, char **temp, t_list **loc_var)
 // makes the main struct to be passed to the executor
 int	initialize(char *line, t_list **loc_var)
 {
-	// int			stat;
 	t_input		*cmd;
 	char		*str;
 	char		**temp;
+	// int			stat;
 
 	if (parse_line(line) == false)
 		return (258);
@@ -110,9 +110,9 @@ int	initialize(char *line, t_list **loc_var)
 	ft_free(temp);
 	if (!cmd)
 		return (mem_err(), 1);
-	print_all_the_shit(cmd);
 	// stat = executor(cmd);
+	print_all_the_shit(cmd);
 	destroy_cmd(cmd);
-	return (ft_strlen(line));
 	// return (stat);
+	return (ft_strlen(line));
 }
