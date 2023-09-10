@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/10 14:05:30 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	initialize(char *line, t_list **loc_var)
 	if (!str)
 		return (mem_err(), 1);
 	if (ft_strlen(str) == 0)
-		return (0);
+		return (free(str), 0);
 	temp = ft_split_quotes(str, '|');
 	if (!temp)
 		return (mem_err(), free(str), 1);

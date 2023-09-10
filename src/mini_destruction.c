@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/20 12:28:08 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/10 14:08:39 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static void	free_infile(t_list **inf)
 	while (head != NULL)
 	{
 		infile = (t_inf *)head->cnt;
-		free(infile->filename);
 		head = head->nxt;
+		free(infile->filename);
+		free(infile);
 	}
 	ft_lstclear(inf);
 	free(inf);
@@ -37,8 +38,9 @@ static void	free_outfile(t_list **outf)
 	while (head != NULL)
 	{
 		outfile = (t_outf *)head->cnt;
-		free(outfile->filename);
 		head = head->nxt;
+		free(outfile->filename);
+		free(outfile);
 	}
 	ft_lstclear(outf);
 	free(outf);
