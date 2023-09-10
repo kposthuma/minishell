@@ -12,15 +12,16 @@
 
 #include <minishell_parsing.h>
 
-// hihghly sophisticated arror message
-void	syntax_error(char *string, char a)
+// hihghly sophisticated error message
+void	syntax_error(char *reason, char a)
 {
+	ft_printf("KAAS: syntax error ");
 	if (a != 0 && a != '\n')
-		ft_printf("%s \'%c\'\n", string, a);
+		ft_printf("%s \'%c\'\n", reason, a);
 	else if (a == '\n')
-		ft_printf("%s \'newline\'\n", string);
+		ft_printf("%s \'newline\'\n", reason);
 	else
-		ft_printf("%s\n", string);
+		ft_printf("%s\n", reason);
 }
 
 // in case of malloc fail

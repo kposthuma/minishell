@@ -16,7 +16,7 @@ static void	prinf(t_list **inf)
 {
 	t_inf	*yes;
 
-	for (t_list *head = *inf; head != NULL; head = head->nxt)
+	for (t_list	*head = *inf; head != NULL; head = head->nxt)
 	{
 		yes = (t_inf *)head->cnt;
 		if (yes->heredoc == true)
@@ -30,7 +30,7 @@ static void	proutf(t_list **outf)
 {
 	t_outf	*yes;
 
-	for (t_list *head = *outf; head != NULL; head = head->nxt)
+	for (t_list	*head = *outf; head != NULL; head = head->nxt)
 	{
 		yes = (t_outf *)head->cnt;
 		if (yes->append == true)

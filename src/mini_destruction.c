@@ -25,6 +25,7 @@ static void	free_infile(t_list **inf)
 		head = head->nxt;
 	}
 	ft_lstclear(inf);
+	free(inf);
 }
 
 static void	free_outfile(t_list **outf)
@@ -40,6 +41,7 @@ static void	free_outfile(t_list **outf)
 		head = head->nxt;
 	}
 	ft_lstclear(outf);
+	free(outf);
 }
 
 void	free_command_struct(t_commands *command)
@@ -53,15 +55,14 @@ void	free_cmd(t_input *cmd, size_t i)
 {
 	if (i != 0)
 	{
-		i--;
 		while (i > 0)
 		{
+			i--;
 			free_infile(cmd->commands[i]->infiles);
 			free_outfile(cmd->commands[i]->outfiles);
 			free(cmd->commands[i]->command);
 			ft_free(cmd->commands[i]->args);
 			free(cmd->commands[i]);
-			i--;
 		}
 		free(cmd->commands);
 		free(cmd);

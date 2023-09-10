@@ -12,6 +12,28 @@
 
 #include <minishell_parsing.h>
 
+void	clear_loc_var(t_list **loc_var)
+{
+	t_loc_var	*current;
+	t_list		*temp1;
+	t_list		*temp2;
+
+	temp1 = *loc_var;
+	while (temp1 != NULL)
+	{
+		temp2 = temp1;
+		current = (t_loc_var *)temp2->cnt;
+		temp1 = temp1->nxt;
+		free(current->variable);
+		free(current->value);
+		free(current);
+		free(temp2);
+	}
+	*loc_var = NULL;
+	free(*loc_var);
+	free(loc_var);
+}
+
 //initializes a linked list of locally stored variables
 // and sets the initial status to 0
 t_list	**init_loc_var(void)

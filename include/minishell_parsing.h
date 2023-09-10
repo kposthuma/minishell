@@ -89,6 +89,7 @@ typedef struct s_parse
 void		sigfunc(void);
 
 // mini_loc_var.c
+void		clear_loc_var(t_list **loc_var);
 t_list		**init_loc_var(void);
 void		set_status(t_list **loc_var, int status);
 char		**check_vars(char **args, t_input *cmd);

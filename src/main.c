@@ -31,9 +31,9 @@ int	main(void)
 	{
 		line = readline("KAAS% ");
 		if (!line)
-			return (printf("\nexit\n"), 0);
+			break ;
 		if (ft_strncmp(line, "exit", 4) == 0)
-			return (free(line), 0);
+			return (free(line), clear_loc_var(loc_var), 0);
 		if (line && *line)
 		{
 			add_history(line);
@@ -42,7 +42,8 @@ int	main(void)
 		free(line);
 		line = NULL;
 	}
-	return (0);
+	clear_loc_var(loc_var);
+	return (printf("\nexit\n"), 0);
 }
 
 // for testing expansion

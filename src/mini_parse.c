@@ -42,14 +42,16 @@ bool	check_quotes(char *line)
 bool	check_redir(t_parse *node, char a)
 {
 	if (node->next == NULL)
-		return (false);
+		return (syntax_error("near unexpected token", '\n'), false);
 	if (is_bash_tok(node->next->token[0]) == true
 		&& node->next->token[0] != a)
-		return (false);
+		return (syntax_error("near unexpected token",
+				node->next->token[0]), false);
 	if (is_bash_tok(node->next->token[0]) == true
 		&& node->next->token[0] == a && node->last != NULL
 		&& node->last->token[0] == a)
-		return (false);
+		return (syntax_error("near unexpected token",
+				node->next->token[0]), false);
 	return (true);
 }
 
@@ -67,17 +69,13 @@ bool	check_pipe(t_parse *node)
 
 bool	check_syntax(t_parse *node)
 {
-	bool	check;
-
 	if (node->token[0] == '<')
-		check = check_redir(node, '<');
+		return (check_redir(node, '<'));
 	else if (node->token[0] == '>')
-		check = check_redir(node, '>');
+		return (check_redir(node, '>'));
 	else if (node->token[0] == '|')
-		check = check_pipe(node);
-	else
-		check = true;
-	return (check);
+		return (check_pipe(node));
+	return (true);
 }
 
 bool	check_list(t_parse **head)
@@ -87,14 +85,12 @@ bool	check_list(t_parse **head)
 
 	node = *head;
 	check = true;
-	while (node->next != NULL && check == true)
+	while (node != NULL && check == true)
 	{
 		if (is_bash_tok(node->token[0]) == true)
 			check = check_syntax(node);
 		node = node->next;
 	}
-	if (is_bash_tok(node->token[0]) == true)
-		check = check_syntax(node);
 	return (check);
 }
 
@@ -105,10 +101,9 @@ bool	parse_line(char *line)
 	bool	check;
 
 	if (check_quotes(line) == false)
-		return (syntax_error("Syntax error: Unclosed quotations.", 0), false);
+		return (syntax_error(": Unclosed quotations.", 0), false);
 	head = tokenize_line(line);
 	check = check_list(head);
-	// check = true;
 	clear_list(head);
 	return (check);
 }
