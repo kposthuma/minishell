@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:42:11 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/13 13:45:05 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 14:27:02 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	set_status(t_list **loc_var, int status)
 	num->value = ft_itoa(status);
 }
 
+// assign a local variable to the list 
 t_list	**assign_loc_var(char *src, t_list **loc_var)
 {
 	t_list		*new;
@@ -96,11 +97,20 @@ t_list	**assign_loc_var(char *src, t_list **loc_var)
 // TODO fix this shit
 char	**check_vars(char **args, t_input *cmd)
 {
+	char	*temp;
+	size_t	i;
+
 	if (!args[0] || ft_strchr(args[0], '=') == NULL)
 		return (args);
 	if (!args[1] && cmd->comm_nr == 1)
 		cmd->loc_var = assign_loc_var(args[0], cmd->loc_var);
-	free(args[0]);
-	args += 1;
+	i = 0;
+	temp = args[0];
+	while (args[i])
+	{
+		args[i] = args[i + 1];
+		i++;
+	}
+	free(temp);
 	return (args);
 }

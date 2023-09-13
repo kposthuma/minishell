@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/10 15:00:13 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 14:31:50 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ bool		is_bash_tok(char a);
 
 // mini_utils_string.c
 char		*ft_trim_quotes(char *s);
+char		**ft_trim_quotes_double(char **src);
 char		*ft_string_snip(char *source, char	*snip);
 char		*ft_strjointhree(char *str1, char *str2, char *str3);
 char		*ft_substr_sub(char *src, char *str1, char *str2);

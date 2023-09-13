@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/09/10 14:52:06 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/10 14:59:12 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 14:31:36 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,21 @@ char	*ft_trim_quotes(char *s)
 			s2++;
 	}
 	return (s);
+}
+
+char	**ft_trim_quotes_double(char **src)
+{
+	size_t	i;
+
+	i = 0;
+	if (!src)
+		return (NULL);
+	while (src && src[i])
+	{
+		src[i] = ft_trim_quotes(src[i]);
+		i++;
+	}
+	return (src);
 }
 
 //removes a part (snip) of a string and joins the remainder together

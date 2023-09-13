@@ -6,34 +6,16 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/13 13:38:58 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 14:54:21 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
 
-static char	**ft_trim_quotes_double(char **src)
-{
-	size_t	i;
-
-	i = 0;
-	if (!src)
-		return (NULL);
-	while (src && src[i])
-	{
-		src[i] = ft_trim_quotes(src[i]);
-		i++;
-	}
-	return (src);
-}
-
 static	void	construct_command(t_commands *command, t_input *cmd)
 {
 	if (!command->args[0])
-	{
 		command->command = NULL;
-		cmd->comm_nr--;
-	}
 	else
 		command->command = ft_strdup(command->args[0]);
 }
