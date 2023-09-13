@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:42:11 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/29 13:49:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 13:45:05 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ t_list	**assign_loc_var(char *src, t_list **loc_var)
 	return (loc_var);
 }
 
+// TODO fix this shit
 char	**check_vars(char **args, t_input *cmd)
 {
 	if (!args[0] || ft_strchr(args[0], '=') == NULL)
 		return (args);
-	if (!args[1])
+	if (!args[1] && cmd->comm_nr == 1)
 		cmd->loc_var = assign_loc_var(args[0], cmd->loc_var);
 	free(args[0]);
-	args++;
-	cmd->comm_nr--;
+	args += 1;
 	return (args);
 }

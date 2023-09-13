@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/10 14:57:39 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/12 16:17:04 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	check_pipe(t_parse *node)
 	char	a;
 
 	if (node->next == NULL || node->last == NULL)
-		return (false);
+		return (syntax_error("near unexpected token", '\n'), false);
 	a = node->next->token[0];
 	if (a == '|' || a == '&' || a == ';' || a == '(' || a == ')')
 		return (syntax_error("near unexpected token",

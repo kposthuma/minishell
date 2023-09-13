@@ -6,11 +6,11 @@
 #    By: kposthum <kposthum@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 16:04:34 by kposthum      #+#    #+#                  #
-#    Updated: 2023/09/10 14:55:56 by kposthum      ########   odam.nl          #
+#    Updated: 2023/09/13 13:39:19 by kposthum      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-CC := gcc -Wall -Werror -Wextra -g -fsanitize=address
+CC := gcc -g -fsanitize=address #-Wall -Werror -Wextra 
 NAME := minishell
 SRCS := main.c\
 		mini_signal.c\
