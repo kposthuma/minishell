@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:22:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/05 14:51:37 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 15:03:08 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
 		line = NULL;
 	}
 	clear_loc_var(loc_var);
-	return (printf("\nexit\n"), 0);
+	return (printf("exit\n"), 0);
 }
 
 // for testing expansion

@@ -6,13 +6,13 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/13 14:54:21 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 15:09:03 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
 
-static	void	construct_command(t_commands *command, t_input *cmd)
+static	void	construct_command(t_commands *command)
 {
 	if (!command->args[0])
 		command->command = NULL;
@@ -43,7 +43,7 @@ static t_commands	*construct_argument(char **line, size_t i, t_input *cmd)
 	if (!command->args)
 		return (free_command_struct(command), free(line[i]), NULL);
 	command->args = check_vars(command->args, cmd);
-	construct_command(command, cmd);
+	construct_command(command);
 	return (command);
 }
 
@@ -82,6 +82,7 @@ int	initialize(char *line, t_list **loc_var)
 
 	if (parse_line(line) == false)
 		return (258);
+	// expansion later, not here
 	str = mini_expansion(line, loc_var);
 	if (!str)
 		return (mem_err(), 1);

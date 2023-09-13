@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 13:00:23 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/10 14:45:17 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/13 15:06:22 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	signal_int(int signum)
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
