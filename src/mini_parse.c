@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/12 16:17:04 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 17:28:49 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ bool	check_redir(t_parse *node, char a)
 	if (is_bash_tok(node->next->token[0]) == true
 		&& node->next->token[0] == a && node->last != NULL
 		&& node->last->token[0] == a)
+		return (syntax_error("near unexpected token",
+				node->next->token[0]), false);
+	if (node->next->token[0] == a && ft_isspace(node->token[1]) == 1)
 		return (syntax_error("near unexpected token",
 				node->next->token[0]), false);
 	return (true);
