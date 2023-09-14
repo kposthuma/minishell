@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:42:11 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/13 14:27:02 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 15:22:56 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,33 @@ void	set_status(t_list **loc_var, int status)
 	num->value = ft_itoa(status);
 }
 
+// searches for an occurance of var in loc_var and removes it
+void	remove_duplicate(t_list **loc_var, char *var)
+{
+	t_loc_var	*temp1;
+	t_list		*temp2;
+	t_list		*temp3;
+
+	temp2 = *loc_var;
+	while (temp2 != NULL)
+	{
+		if (temp2->nxt != NULL)
+		{
+			temp1 = (t_loc_var *)temp2->nxt->cnt;
+			if (ft_strncmp(temp1->variable, var, ft_strlen(var)) == 0)
+			{
+				temp3 = temp2->nxt;
+				temp2->nxt = temp2->nxt->nxt;
+				free(temp1->value);
+				free(temp1->variable);
+				free(temp1);
+				free(temp3);
+			}
+		}
+		temp2 = temp2->nxt;
+	}
+}
+
 // assign a local variable to the list 
 t_list	**assign_loc_var(char *src, t_list **loc_var)
 {
@@ -90,11 +117,13 @@ t_list	**assign_loc_var(char *src, t_list **loc_var)
 	if (!var->value || !var->variable || !new)
 		return (free(var->value), free(var->variable),
 			free(var), free(new), mem_err(), loc_var);
+	remove_duplicate(loc_var, var->variable);
 	ft_lstadd_back(loc_var, new);
 	return (loc_var);
 }
 
-// TODO fix this shit
+// allows user to store variables locally with "variable=value"
+// ingnores such inputs if other inputs are also present
 char	**check_vars(char **args, t_input *cmd)
 {
 	char	*temp;

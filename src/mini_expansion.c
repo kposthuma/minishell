@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/05 15:31:40 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 12:49:35 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*expand(char *line, size_t i, t_list *var)
 	j -= i;
 	name = ft_substr(line, i, j);
 	if (!name)
-		return (free(name), NULL);
+		return (NULL);
 	sub = find_sub(var, name);
 	sub = ft_trim_quotes(sub);
 	line = ft_substr_sub(line, name, sub);
@@ -83,7 +83,7 @@ char	*mini_expansion(char *line, t_list **loc_var)
 		else if (str[i])
 			i++;
 		if (!str)
-			return (NULL);
+			return (mem_err(), NULL);
 	}
 	return (str);
 }

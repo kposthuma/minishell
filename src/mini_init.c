@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/13 15:09:03 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 14:53:26 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,28 @@ static	void	construct_command(t_commands *command)
 		command->command = NULL;
 	else
 		command->command = ft_strdup(command->args[0]);
+}
+
+static	char	**make_arg(char *line, t_input *cmd)
+{
+	char	**arg;
+	char	*temp;
+	size_t	i;
+
+	arg = ft_split_whitespace(line);
+	if (!arg)
+		return (mem_err(), NULL);
+	i = 0;
+	while (arg[i])
+	{
+		temp = arg[i];
+		arg[i] = ft_trim_quotes(mini_expansion(line, cmd->loc_var));
+		free(temp);
+		if (!arg[i])
+			return (ft_free(arg), mem_err(), NULL);
+		i++;
+	}
+	return (arg);
 }
 
 // makes the individual command structs
@@ -39,7 +61,7 @@ static t_commands	*construct_argument(char **line, size_t i, t_input *cmd)
 	line[i] = check_outfile(command, line[i]);
 	if (!line[i])
 		return (free_command_struct(command), NULL);
-	command->args = ft_trim_quotes_double(ft_split_whitespace(line[i]));
+	command->args = make_arg(line[i], cmd);
 	if (!command->args)
 		return (free_command_struct(command), free(line[i]), NULL);
 	command->args = check_vars(command->args, cmd);
@@ -76,23 +98,23 @@ static t_input	*build_cmd(char *line, char **temp, t_list **loc_var)
 int	initialize(char *line, t_list **loc_var)
 {
 	t_input		*cmd;
-	char		*str;
+	// char		*str;
 	char		**temp;
 	// int			stat;
 
 	if (parse_line(line) == false)
 		return (258);
 	// expansion later, not here
-	str = mini_expansion(line, loc_var);
-	if (!str)
-		return (mem_err(), 1);
-	if (ft_strlen(str) == 0)
-		return (free(str), 0);
-	temp = ft_split_quotes(str, '|');
+	// str = mini_expansion(line, loc_var);
+	// if (!str)
+	// 	return (mem_err(), 1);
+	// if (ft_strlen(str) == 0)
+	// 	return (free(str), 0);
+	temp = ft_split_quotes(line, '|');
 	if (!temp)
-		return (mem_err(), free(str), 1);
-	cmd = build_cmd(str, temp, loc_var);
-	free(str);
+		return (mem_err(), 1);
+	cmd = build_cmd(line, temp, loc_var);
+	// free(str);
 	ft_free(temp);
 	if (!cmd)
 		return (mem_err(), 1);
