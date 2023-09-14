@@ -6,20 +6,20 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/13 14:06:30 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/08/31 15:34:30 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 17:20:47 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell_parsing.h>
 
 // creates a string for the infile struct 
-static char	*make_filename(char *temp)
+static char	*make_filename(char *temp, t_list **loc_var)
 {
 	char	*trim;
 
 	while (*temp && (*temp == '<' || ft_isspace(*temp) == 1))
 		temp++;
-	trim = ft_strdup(temp);
+	trim = mini_expansion(temp, loc_var);
 	return (ft_trim_quotes(trim));
 }
 
@@ -41,7 +41,7 @@ static void	mem_fail_dest(char *temp, t_inf *inf, char *line)
 }
 
 // check if there are any infile redirects
-char	*check_infile(t_commands *command, char *line)
+char	*check_infile(t_commands *command, char *line, t_list **loc_var)
 {
 	char	*temp;
 	t_inf	*inf;
@@ -54,7 +54,7 @@ char	*check_infile(t_commands *command, char *line)
 		if (!temp || !inf)
 			return (free(temp), free(inf), NULL);
 		inf->heredoc = check_heredoc(temp);
-		inf->filename = make_filename(temp);
+		inf->filename = make_filename(temp, loc_var);
 		line = ft_string_snip(line, temp);
 		if (!inf->filename || !line)
 			return (mem_fail_dest(temp, inf, line), NULL);

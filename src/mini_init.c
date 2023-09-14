@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/14 14:53:26 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 17:20:48 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ static t_commands	*construct_argument(char **line, size_t i, t_input *cmd)
 	if (!command->infiles || !command->outfiles)
 		return (free(command->infiles), free(command->outfiles),
 			free(command), NULL);
-	line[i] = check_infile(command, line[i]);
+	line[i] = check_infile(command, line[i], cmd->loc_var);
 	if (!line[i])
 		return (free_command_struct(command), NULL);
-	line[i] = check_outfile(command, line[i]);
+	line[i] = check_outfile(command, line[i], cmd->loc_var);
 	if (!line[i])
 		return (free_command_struct(command), NULL);
 	command->args = make_arg(line[i], cmd);

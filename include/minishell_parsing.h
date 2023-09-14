@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/13 14:31:50 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/14 17:21:12 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ int			initialize(char *line, t_list **loc_var);
 char		*mini_expansion(char *line, t_list **loc_var);
 
 //mini_infile.c
-char		*check_infile(t_commands *command, char *input);
+char		*check_infile(t_commands *command, char *input, t_list **loc_var);
 
 // mini_outfile.c
-char		*check_outfile(t_commands *command, char *input);
+char		*check_outfile(t_commands *command, char *input, t_list **loc_var);
 
 // mini_destruction.c
 void		free_command_struct(t_commands *command);
