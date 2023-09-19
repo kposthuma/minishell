@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/27 14:42:11 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/14 15:22:56 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/19 15:16:44 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	remove_duplicate(t_list **loc_var, char *var)
 }
 
 // assign a local variable to the list 
+// TODO -if variable exists in env, export in stead of add to list
 t_list	**assign_loc_var(char *src, t_list **loc_var)
 {
 	t_list		*new;

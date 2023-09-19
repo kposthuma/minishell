@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/14 17:20:48 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/19 15:12:15 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,29 +98,21 @@ static t_input	*build_cmd(char *line, char **temp, t_list **loc_var)
 int	initialize(char *line, t_list **loc_var)
 {
 	t_input		*cmd;
-	// char		*str;
 	char		**temp;
-	// int			stat;
+	int			stat;
 
 	if (parse_line(line) == false)
 		return (258);
-	// expansion later, not here
-	// str = mini_expansion(line, loc_var);
-	// if (!str)
-	// 	return (mem_err(), 1);
-	// if (ft_strlen(str) == 0)
-	// 	return (free(str), 0);
 	temp = ft_split_quotes(line, '|');
 	if (!temp)
 		return (mem_err(), 1);
 	cmd = build_cmd(line, temp, loc_var);
-	// free(str);
 	ft_free(temp);
 	if (!cmd)
 		return (mem_err(), 1);
+	stat = ft_strlen(line);
 	// stat = executor(cmd);
 	print_all_the_shit(cmd);
 	destroy_cmd(cmd);
-	// return (stat);
-	return (ft_strlen(line));
+	return (stat);
 }
