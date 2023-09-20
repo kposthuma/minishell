@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/29 09:20:54 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/14 17:21:12 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/20 14:08:24 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_inf
 {
 	bool			heredoc;
 	char			*filename;
+	char			*delim;
 }	t_inf;
 
 // infile contains NULL when there is no outfile

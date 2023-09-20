@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/06 14:50:50 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/14 17:28:49 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/20 14:19:35 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 bool	check_redir(t_parse *node, char a)
 {
 	if (node->next == NULL)
-		return (syntax_error("near unexpected token", '\n'), false);
+		return (syntax_error(" near unexpected token ", '\n'), false);
 	if (is_bash_tok(node->next->token[0]) == true
 		&& node->next->token[0] != a)
-		return (syntax_error("near unexpected token",
+		return (syntax_error(" near unexpected token ",
 				node->next->token[0]), false);
 	if (is_bash_tok(node->next->token[0]) == true
 		&& node->next->token[0] == a && node->last != NULL
 		&& node->last->token[0] == a)
-		return (syntax_error("near unexpected token",
+		return (syntax_error(" near unexpected token ",
 				node->next->token[0]), false);
 	if (node->next->token[0] == a && ft_isspace(node->token[1]) == 1)
-		return (syntax_error("near unexpected token",
+		return (syntax_error(" near unexpected token ",
 				node->next->token[0]), false);
 	return (true);
 }
@@ -36,10 +36,10 @@ bool	check_pipe(t_parse *node)
 	char	a;
 
 	if (node->next == NULL || node->last == NULL)
-		return (syntax_error("near unexpected token", '\n'), false);
+		return (syntax_error(" near unexpected token ", '\n'), false);
 	a = node->next->token[0];
 	if (a == '|' || a == '&' || a == ';' || a == '(' || a == ')')
-		return (syntax_error("near unexpected token",
+		return (syntax_error(" near unexpected token ",
 				node->next->token[0]), false);
 	return (true);
 }

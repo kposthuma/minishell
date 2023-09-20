@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 14:04:51 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/14 12:49:35 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/20 14:36:18 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*mini_expansion(char *line, t_list **loc_var)
 	{
 		if (str[i] == '\'')
 			i = skip_single_quotes(i, str);
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '\0' && !ft_isspace(str[i + 1]))
 			str = expand(str, i, var);
 		else if (str[i])
 			i++;

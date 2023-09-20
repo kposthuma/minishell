@@ -6,7 +6,7 @@
 /*   By: kposthum <kposthum@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/05 14:23:03 by kposthum      #+#    #+#                 */
-/*   Updated: 2023/09/19 15:12:15 by kposthum      ########   odam.nl         */
+/*   Updated: 2023/09/20 14:33:45 by kposthum      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static	char	**make_arg(char *line, t_input *cmd)
 	while (arg[i])
 	{
 		temp = arg[i];
-		arg[i] = ft_trim_quotes(mini_expansion(line, cmd->loc_var));
+		arg[i] = ft_trim_quotes(mini_expansion(arg[i], cmd->loc_var));
+		printf("%s\n", arg[i]);
 		free(temp);
 		if (!arg[i])
 			return (ft_free(arg), mem_err(), NULL);
